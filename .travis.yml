@@ -12,8 +12,10 @@ android:
     - extra-google-m2repository
     - extra-android-m2repository
 jdk: openjdk11
+before_script:
+- "yes | ~/android_sdk/tools/bin/sdkmanager --licenses"
 script:
-- "./gradlew connectedCheck"
+- "./gradlew build"
 before_cache:
 - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
 - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
