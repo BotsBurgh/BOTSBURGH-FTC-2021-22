@@ -2,6 +2,8 @@ language: android
 install: skip
 os: linux
 dist: focal
+env:
+- VUFORIA_KEY="\"\""
 android:
   components:
     - tools
