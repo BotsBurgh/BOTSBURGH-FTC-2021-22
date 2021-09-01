@@ -1,0 +1,17 @@
+language: java
+install: skip
+os: linux
+dist: xenial
+jdk: oraclejdk8
+script:
+- "./gradlew build"
+before_cache:
+- rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+cache:
+  directories:
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
+notifications:
+  slack:
+    secure: G7xsMjRAE4U0LkJqVEdRMrCykCl3Bi2a5hXhVUMArQwx4MPFfMlFL8ZTsFKMD/swl18qC0fYMp2uY1ks9dPVdBLSbSs0JV5XtxRuqEKW435TwlAG0cwhyoj1rlQC2yeWDsGsIk9ZmsjdRX16SuQw9cwhGZC6pluUaOwabPYL0xS7lYofqf4iKjCerp+GRUK3SAB2W1JRA6K1bnpj420M9+bytw93H7hafJC5e3mTOWiz/rDDw3ju+dLUPsnhdZO2x8zvVPqS7QsA87wipdui3ob7Ru4hnW9JPYw86jEDRSHSIu1raaAo6Xprx564trotabb9biir5RRahFrm9Mk2OsWya/gCodFSq3G5Q1kfxnaIswNXIy2uTjVkQII42xh1VDKXan0uRXWjhok6dNBtsvTBOY8jIwJq4BXTutt+V9eywNUA2ELcOZkvGO2t4zS+k+4Mbq0P5OA8/WdJFrsf9vtbSOL48nxqblPvx3usNN342sY0ytjwtBL3eX2+/RSyPTd7N7lutyVufWK6FBDvOpS9LpR9mc6bN7DKUkS8w2kuzDqgnEoFM7aoyqVCuaIupdd4imeoMEYqSW6C0Dq0abX2ImeAhs+Mc3Er398l/WKHF21+RlhRgO2X1ATqSo1+1RiQLanB2mjhk3ZKIR7flMwmigtS8h1GoeLaW2muMEU=
