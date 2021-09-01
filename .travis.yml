@@ -6,12 +6,16 @@ android:
   components:
     - tools
     - tools
+    - platform-tools
+    - build-tools-30.0.2
+    - android-29
+    - extra-google-google_play_services
+    - extra-google-m2repository
+    - extra-android-m2repository
 jdk: openjdk11
 before_install:
 - mkdir "$ANDROID_HOME/licenses" || true
 - echo -e "\n24333f8a63b6825ea9c5514f83c2829b004d1fee" > "$ANDROID_HOME/licenses/android-sdk-license"
-before-script:
-- ${ANDROID_HOME}tools/bin/sdkmanager --channel=3 "tools" "platform-tools" "build-tools;30.0.2" "platforms;android-29" "extras;google;m2repository"
 script:
 - "./gradlew build"
 before_cache:
