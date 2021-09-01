@@ -13,7 +13,7 @@ android:
     - extra-android-m2repository
 jdk: openjdk11
 before_script:
-- "yes | sdkmanager --licenses"
+- "yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses"
 script:
 - "./gradlew build"
 before_cache:
