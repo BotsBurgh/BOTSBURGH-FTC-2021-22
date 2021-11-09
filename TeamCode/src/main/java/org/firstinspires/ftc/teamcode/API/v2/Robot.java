@@ -10,6 +10,14 @@ import org.firstinspires.ftc.teamcode.API.v2.bp.AbstractRobot;
 public class Robot extends AbstractRobot {
     public DcMotor frontLeft, frontRight, backLeft, backRight;
 
+    public Robot() {
+        super();
+    }
+
+    public Robot(OpMode opMode) {
+        super(opMode);
+    }
+
     @Override
     public void initTeleOp(@NonNull OpMode opMode) {
         this.frontLeft = opMode.hardwareMap.get(DcMotor.class, Naming.FRONT_LEFT);
