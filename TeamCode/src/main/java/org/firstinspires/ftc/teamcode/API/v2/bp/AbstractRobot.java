@@ -50,7 +50,7 @@ public abstract class AbstractRobot {
      *
      * @param power The power that is applied to each motor.
      */
-    public void moveFront(double power) {};
+    public void moveFront(double power) {}
 
     /**
      * Moves only the back motors.
@@ -60,7 +60,7 @@ public abstract class AbstractRobot {
      *
      * @param power The power that is applied to each motor.
      */
-    public void moveBack(double power) {};
+    public void moveBack(double power) {}
 
     /**
      * Moves only the left motors.
@@ -70,7 +70,7 @@ public abstract class AbstractRobot {
      *
      * @param power The power that is applied to each motor.
      */
-    public void moveLeft(double power) {};
+    public void moveLeft(double power) {}
 
     /**
      * Moves only the right motors.
@@ -80,5 +80,19 @@ public abstract class AbstractRobot {
      *
      * @param power The power that is applied to each motor.
      */
-    public void moveRight(double power) {};
+    public void moveRight(double power) {}
+
+    /**
+     * Rotates the robot left if given a positive number.
+     *
+     * @param power The power that is applied to each motor.
+     */
+    public void turnLeft(double power) {}
+
+    /**
+     * Rotates the robot right if given a positive number.
+     *
+     * @param power The power that is applied to each motor.
+     */
+    public void turnRight(double power) {}
 }
