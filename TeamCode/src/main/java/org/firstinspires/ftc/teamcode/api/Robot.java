@@ -38,6 +38,15 @@ public class Robot extends AbstractRobot {
     }
 
     @Override
+    public void stopAll() {
+        this.frontLeft.setPower(0);
+        this.frontRight.setPower(0);
+        this.backLeft.setPower(0);
+        this.backRight.setPower(0);
+        this.duck.setPower(0);
+    }
+
+    @Override
     public void moveFront(double power) {
         this.frontLeft.setPower(power);
         this.frontRight.setPower(power);

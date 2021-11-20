@@ -43,6 +43,11 @@ public abstract class AbstractRobot {
     public abstract void moveAll(double power);
 
     /**
+     * Stops <b>everything</b>. All movement should be disabled safely.
+     */
+    public abstract void stopAll();
+
+    /**
      * Moves only the front motors.
      *
      * It is optional to implement this method because it assumes that the robot is rectangular
