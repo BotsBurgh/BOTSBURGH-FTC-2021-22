@@ -7,4 +7,9 @@ public class Hardware {
     public static final String BACK_RIGHT = "backRight";
 
     public static final String DUCK = "duck";
+
+    public static class CoreHexMotor {
+        public static final int COUNTS_PER_REV = 288;
+        public static final double WHEEL_DIAMETER = 100 / 25.4;
+    }
 }
