@@ -5,12 +5,14 @@ import androidx.annotation.NonNull;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.api.bp.AbstractRobot;
 import org.firstinspires.ftc.teamcode.api.vars.Hardware;
 
 public class Robot extends AbstractRobot {
-    public DcMotor frontLeft, frontRight, backLeft, backRight, duck, armBase, armBaseMirror;
+    public DcMotor frontLeft, frontRight, backLeft, backRight, duck;
+    public Servo armBase, armBaseMirror;
 
     public Robot() {
         super();
@@ -29,10 +31,10 @@ public class Robot extends AbstractRobot {
 
         this.duck = opMode.hardwareMap.get(DcMotor.class, Hardware.DUCK);
 
-        this.armBase = opMode.hardwareMap.get(DcMotor.class, Hardware.ARM_BASE);
-        this.armBaseMirror = opMode.hardwareMap.get(DcMotor.class, Hardware.ARM_BASE_MIRROR);
+        this.armBase = opMode.hardwareMap.get(Servo.class, Hardware.ARM_BASE);
+        this.armBaseMirror = opMode.hardwareMap.get(Servo.class, Hardware.ARM_BASE_MIRROR);
 
-        this.reverseMotors(new DcMotor[]{armBaseMirror});
+        this.armBaseMirror.setDirection(Servo.Direction.REVERSE);
     }
 
     @Override
@@ -68,9 +70,9 @@ public class Robot extends AbstractRobot {
         this.duck.setPower(power);
     }
 
-    public void spinArmBase(double power) {
-        this.armBase.setPower(power);
-        this.armBaseMirror.setPower(power);
+    public void spinArmBase(double amount) {
+        this.armBase.setPosition(this.armBase.getPosition() + amount);
+        this.armBaseMirror.setPosition(this.armBaseMirror.getPosition() + amount);
     }
 
     public void setMotorsDirection(@NonNull DcMotor[] motors, DcMotor.Direction direction) {
