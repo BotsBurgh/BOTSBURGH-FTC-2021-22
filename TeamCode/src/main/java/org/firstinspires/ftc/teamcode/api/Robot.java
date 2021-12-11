@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.api.bp.AbstractRobot;
 import org.firstinspires.ftc.teamcode.api.vars.Hardware;
 
 public class Robot extends AbstractRobot {
-    public DcMotor frontLeft, frontRight, backLeft, backRight, duck;
+    public DcMotor frontLeft, frontRight, backLeft, backRight, duck, armBase, armBaseMirror;
 
     public Robot() {
         super();
@@ -26,7 +26,13 @@ public class Robot extends AbstractRobot {
         this.frontRight = opMode.hardwareMap.get(DcMotor.class, Hardware.FRONT_RIGHT);
         this.backLeft = opMode.hardwareMap.get(DcMotor.class, Hardware.BACK_LEFT);
         this.backRight = opMode.hardwareMap.get(DcMotor.class, Hardware.BACK_RIGHT);
+
         this.duck = opMode.hardwareMap.get(DcMotor.class, Hardware.DUCK);
+
+        this.armBase = opMode.hardwareMap.get(DcMotor.class, Hardware.ARM_BASE);
+        this.armBaseMirror = opMode.hardwareMap.get(DcMotor.class, Hardware.ARM_BASE_MIRROR);
+
+        this.reverseMotors(new DcMotor[]{armBaseMirror});
     }
 
     @Override
@@ -60,6 +66,11 @@ public class Robot extends AbstractRobot {
 
     public void spinDuck(double power) {
         this.duck.setPower(power);
+    }
+
+    public void spinArmBase(double power) {
+        this.armBase.setPower(power);
+        this.armBaseMirror.setPower(power);
     }
 
     public void setMotorsDirection(@NonNull DcMotor[] motors, DcMotor.Direction direction) {

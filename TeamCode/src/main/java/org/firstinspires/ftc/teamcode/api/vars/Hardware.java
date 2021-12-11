@@ -8,6 +8,9 @@ public class Hardware {
 
     public static final String DUCK = "duck";
 
+    public static final String ARM_BASE = "armBase";
+    public static final String ARM_BASE_MIRROR = "armBaseMirror";
+
     public static class CoreHexMotor {
         public static final int COUNTS_PER_REV = 288;
         public static final double WHEEL_DIAMETER = 100 / 25.4;
