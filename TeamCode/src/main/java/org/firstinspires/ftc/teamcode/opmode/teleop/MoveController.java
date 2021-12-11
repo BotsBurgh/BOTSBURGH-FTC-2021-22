@@ -42,12 +42,25 @@ public class MoveController extends LinearOpMode {
             }
 
             if (gamepad1.dpad_up) {
-                robot.spinArmBase(1);
+                robot.spinArmBase(0.5);
+                telemetry.addData("dpad", "up");
             } else if (gamepad1.dpad_down) {
-                robot.spinArmBase(-1);
+                robot.spinArmBase(-0.5);
+                telemetry.addData("dpad", "down");
             } else {
                 robot.spinArmBase(0);
+                telemetry.addData("dpad", "none");
             }
+
+            if (gamepad1.left_trigger > 0) {
+                robot.moveClaw(0.5);
+            } else if (gamepad1.right_trigger > 0) {
+                robot.moveClaw(-0.5);
+            } else {
+                robot.moveClaw(0);
+            }
+
+            telemetry.update();
         }
     }
 }

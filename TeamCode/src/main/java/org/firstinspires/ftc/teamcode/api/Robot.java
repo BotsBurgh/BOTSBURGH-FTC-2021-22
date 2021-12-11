@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.api.vars.Hardware;
 
 public class Robot extends AbstractRobot {
     public DcMotor frontLeft, frontRight, backLeft, backRight, duck;
-    public Servo armBase, armBaseMirror;
+    public Servo armBase, armBaseMirror, claw, clawMirror;
 
     public Robot() {
         super();
@@ -34,7 +34,11 @@ public class Robot extends AbstractRobot {
         this.armBase = opMode.hardwareMap.get(Servo.class, Hardware.ARM_BASE);
         this.armBaseMirror = opMode.hardwareMap.get(Servo.class, Hardware.ARM_BASE_MIRROR);
 
+        this.claw = opMode.hardwareMap.get(Servo.class, Hardware.CLAW);
+        this.clawMirror = opMode.hardwareMap.get(Servo.class, Hardware.CLAW_MIRROR);
+
         this.armBaseMirror.setDirection(Servo.Direction.REVERSE);
+        this.clawMirror.setDirection(Servo.Direction.REVERSE);
     }
 
     @Override
@@ -73,6 +77,11 @@ public class Robot extends AbstractRobot {
     public void spinArmBase(double amount) {
         this.armBase.setPosition(this.armBase.getPosition() + amount);
         this.armBaseMirror.setPosition(this.armBaseMirror.getPosition() + amount);
+    }
+
+    public void moveClaw(double amount) {
+        this.claw.setPosition(this.claw.getPosition() + amount);
+        this.clawMirror.setPosition(this.claw.getPosition() + amount);
     }
 
     public void setMotorsDirection(@NonNull DcMotor[] motors, DcMotor.Direction direction) {

@@ -10,6 +10,8 @@ public class Hardware {
 
     public static final String ARM_BASE = "armBase";
     public static final String ARM_BASE_MIRROR = "armBaseMirror";
+    public static final String CLAW = "claw";
+    public static final String CLAW_MIRROR = "clawMirror";
 
     public static class CoreHexMotor {
         public static final int COUNTS_PER_REV = 288;
