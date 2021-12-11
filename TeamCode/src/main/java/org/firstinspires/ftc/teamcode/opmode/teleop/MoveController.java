@@ -21,6 +21,9 @@ public class MoveController extends LinearOpMode {
 
         waitForStart();
 
+        telemetry.addData("Status", "Running");
+        telemetry.update();
+
         while (opModeIsActive()) {
             double joystick_x = gamepad1.left_stick_x;
             double joystick_y = gamepad1.right_stick_y;
@@ -28,12 +31,22 @@ public class MoveController extends LinearOpMode {
             robot.frontLeft.setPower(Range.clip((-joystick_x + joystick_y), -1, 1));
             robot.frontRight.setPower(Range.clip((-joystick_x - joystick_y), -1, 1));
             robot.backLeft.setPower(Range.clip((-joystick_x + joystick_y), -1, 1));
-            robot.backRight.setPower(Range.clip((joystick_x - joystick_y), -1, 1));
+            robot.backRight.setPower(Range.clip((-joystick_x - joystick_y), -1, 1));
 
             if (gamepad1.left_bumper) {
                 robot.spinDuck(1);
+            } else if (gamepad1.right_bumper) {
+                robot.spinDuck(-1);
             } else {
                 robot.spinDuck(0);
+            }
+
+            if (gamepad1.dpad_up) {
+                robot.spinArmBase(1);
+            } else if (gamepad1.dpad_down) {
+                robot.spinArmBase(-1);
+            } else {
+                robot.spinArmBase(0);
             }
         }
     }
