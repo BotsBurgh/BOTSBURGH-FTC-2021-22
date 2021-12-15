@@ -80,8 +80,8 @@ public class Robot extends AbstractRobot {
     }
 
     public void moveClaw(double amount) {
-        this.claw.setPosition(this.claw.getPosition() + amount);
-        this.clawMirror.setPosition(this.claw.getPosition() + amount);
+        this.claw.setPosition(amount);
+        this.clawMirror.setPosition(amount);
     }
 
     public void setMotorsDirection(@NonNull DcMotor[] motors, DcMotor.Direction direction) {

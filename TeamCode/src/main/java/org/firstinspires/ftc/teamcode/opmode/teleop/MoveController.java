@@ -25,13 +25,13 @@ public class MoveController extends LinearOpMode {
         telemetry.update();
 
         while (opModeIsActive()) {
-            double joystick_x = gamepad1.left_stick_x;
-            double joystick_y = gamepad1.right_stick_y;
+            double joystick_y = gamepad1.left_stick_y;
+            double joystick_x = gamepad1.right_stick_x;
 
-            robot.frontLeft.setPower(Range.clip((-joystick_x + joystick_y), -1, 1));
-            robot.frontRight.setPower(Range.clip((-joystick_x - joystick_y), -1, 1));
-            robot.backLeft.setPower(Range.clip((-joystick_x + joystick_y), -1, 1));
-            robot.backRight.setPower(Range.clip((-joystick_x - joystick_y), -1, 1));
+            robot.frontLeft.setPower(Range.clip((-joystick_y - joystick_x), -1, 1));
+            robot.frontRight.setPower(Range.clip((joystick_y - joystick_x), -1, 1));
+            robot.backLeft.setPower(Range.clip((-joystick_y - joystick_x), -1, 1));
+            robot.backRight.setPower(Range.clip((-joystick_y + joystick_x), -1, 1));
 
             if (gamepad1.left_bumper) {
                 robot.spinDuck(1);
@@ -42,20 +42,20 @@ public class MoveController extends LinearOpMode {
             }
 
             if (gamepad1.dpad_up) {
-                robot.spinArmBase(0.5);
+                robot.spinArmBase(0.01);
                 telemetry.addData("dpad", "up");
             } else if (gamepad1.dpad_down) {
-                robot.spinArmBase(-0.5);
+                robot.spinArmBase(-0.01);
                 telemetry.addData("dpad", "down");
             } else {
                 robot.spinArmBase(0);
                 telemetry.addData("dpad", "none");
             }
 
-            if (gamepad1.left_trigger > 0) {
-                robot.moveClaw(0.5);
-            } else if (gamepad1.right_trigger > 0) {
-                robot.moveClaw(-0.5);
+            if (gamepad1.dpad_left) {
+                robot.moveClaw(0.2);
+            } else if (gamepad1.dpad_right) {
+                robot.moveClaw(-0.2);
             } else {
                 robot.moveClaw(0);
             }
