@@ -11,7 +11,8 @@ import org.firstinspires.ftc.teamcode.api.bp.AbstractRobot;
 import org.firstinspires.ftc.teamcode.api.vars.Hardware;
 
 public class Robot extends AbstractRobot {
-    public DcMotor frontLeft, frontRight, backLeft, backRight, duck;
+    public SmartMotor frontLeft, frontRight, backLeft, backRight;
+    public DcMotor duck;
     public Servo armBase, armBaseMirror, claw, clawMirror;
 
     public Robot() {
@@ -24,10 +25,11 @@ public class Robot extends AbstractRobot {
 
     @Override
     public void initTeleOp(@NonNull OpMode opMode) {
-        this.frontLeft = opMode.hardwareMap.get(DcMotor.class, Hardware.FRONT_LEFT);
-        this.frontRight = opMode.hardwareMap.get(DcMotor.class, Hardware.FRONT_RIGHT);
-        this.backLeft = opMode.hardwareMap.get(DcMotor.class, Hardware.BACK_LEFT);
-        this.backRight = opMode.hardwareMap.get(DcMotor.class, Hardware.BACK_RIGHT);
+        // Hardware definitions
+        this.frontLeft = new SmartMotor(opMode.hardwareMap.get(DcMotor.class, Hardware.FRONT_LEFT), Hardware.FRONT_LEFT_MOD);
+        this.frontRight = new SmartMotor(opMode.hardwareMap.get(DcMotor.class, Hardware.FRONT_RIGHT), Hardware.FRONT_RIGHT_MOD);
+        this.backLeft = new SmartMotor(opMode.hardwareMap.get(DcMotor.class, Hardware.BACK_LEFT), Hardware.BACK_LEFT_MOD);
+        this.backRight = new SmartMotor(opMode.hardwareMap.get(DcMotor.class, Hardware.BACK_RIGHT), Hardware.BACK_RIGHT_MOD);
 
         this.duck = opMode.hardwareMap.get(DcMotor.class, Hardware.DUCK);
 
