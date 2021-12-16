@@ -1,11 +1,11 @@
-package org.firstinspires.ftc.teamcode.API.v2;
+package org.firstinspires.ftc.teamcode.api.v2;
 
 import androidx.annotation.NonNull;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-import org.firstinspires.ftc.teamcode.API.v2.bp.AbstractRobot;
+import org.firstinspires.ftc.teamcode.api.v2.bp.AbstractRobot;
 
 public class Robot extends AbstractRobot {
     public DcMotor frontLeft, frontRight, backLeft, backRight;

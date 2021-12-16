@@ -29,7 +29,7 @@ public class MoveController extends LinearOpMode {
             double joystick_x = gamepad1.right_stick_x;
 
             robot.frontLeft.setPower(Range.clip((-joystick_y - joystick_x), -1, 1));
-            robot.frontRight.setPower(Range.clip((joystick_y - joystick_x), -1, 1));
+            robot.frontRight.setPower(Range.clip((joystick_y + joystick_x), -1, 1));
             robot.backLeft.setPower(Range.clip((-joystick_y - joystick_x), -1, 1));
             robot.backRight.setPower(Range.clip((-joystick_y + joystick_x), -1, 1));
 
