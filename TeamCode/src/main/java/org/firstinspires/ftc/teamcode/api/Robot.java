@@ -77,12 +77,14 @@ public class Robot extends AbstractRobot {
     }
 
     public void spinArmBase(double amount) {
-        this.armBase.setPosition(this.armBase.getPosition() + amount);
-        this.armBaseMirror.setPosition(this.armBaseMirror.getPosition() + amount);
+        if (!(this.armBase.getPosition() + amount < 0.41)) {
+            this.armBase.setPosition(this.armBase.getPosition() + amount);
+            this.armBaseMirror.setPosition(this.armBaseMirror.getPosition() + amount);
+        }
     }
 
     public void moveClaw(double amount) {
-        this.claw.setPosition(this.claw.getPosition() +amount);
+        this.claw.setPosition(this.claw.getPosition() + amount);
         this.clawMirror.setPosition(this.clawMirror.getPosition() + amount);
     }
 
