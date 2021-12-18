@@ -2,22 +2,22 @@ package org.firstinspires.ftc.teamcode.opmode.autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-import org.firstinspires.ftc.teamcode.api.Robot;
-import org.firstinspires.ftc.teamcode.api.vars.Group;
+import org.firstinspires.ftc.teamcode.api.InitRobot;
+import org.firstinspires.ftc.teamcode.api.Movement;
+import org.firstinspires.ftc.teamcode.api.config.Naming;
 
-@Autonomous(name = "Depot", group = Group.CHALLENGE)
+@Autonomous(name = "Depot", group = Naming.OPMODE_GROUP_COMP)
 public class Depot extends LinearOpMode {
     @Override
     public void runOpMode() {
-        Robot robot = new Robot(this);
+        InitRobot.init(this);
         telemetry.addData("Status", "Initialized");
         telemetry.update();
         waitForStart();
         telemetry.addData("Status", "Running");
-        robot.moveAll(1);
+        Movement.move1x4(1);
         sleep(2000);
-        robot.moveAll(0);
+        Movement.move1x4(0);
     }
 }
