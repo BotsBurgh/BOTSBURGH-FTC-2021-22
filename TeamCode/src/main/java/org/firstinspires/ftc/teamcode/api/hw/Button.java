@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.API.HW;
+package org.firstinspires.ftc.teamcode.api.hw;
 
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 

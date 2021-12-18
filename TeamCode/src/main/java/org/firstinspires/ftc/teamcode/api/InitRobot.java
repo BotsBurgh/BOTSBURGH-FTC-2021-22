@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.API;
+package org.firstinspires.ftc.teamcode.api;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -9,12 +9,12 @@ import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.API.Config.Constants;
-import org.firstinspires.ftc.teamcode.API.Config.Naming;
-import org.firstinspires.ftc.teamcode.API.HW.SmartColorSensor;
-import org.firstinspires.ftc.teamcode.API.HW.SmartMotor;
-import org.firstinspires.ftc.teamcode.API.HW.SmartServo;
-import org.firstinspires.ftc.teamcode.API.HW.Gyroscope;
+import org.firstinspires.ftc.teamcode.api.config.Constants;
+import org.firstinspires.ftc.teamcode.api.config.Naming;
+import org.firstinspires.ftc.teamcode.api.hw.SmartColorSensor;
+import org.firstinspires.ftc.teamcode.api.hw.SmartMotor;
+import org.firstinspires.ftc.teamcode.api.hw.SmartServo;
+import org.firstinspires.ftc.teamcode.api.hw.Gyroscope;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
@@ -32,21 +32,13 @@ public class InitRobot {
     public static void init(@NotNull OpMode l) {
         ExecutorService executorService = Executors.newFixedThreadPool(Constants.THREADS);
 
-        /*
-        * #######                   ######
-        * #       #####  # #####    #     # ###### #       ####  #    #
-        * #       #    # #   #      #     # #      #      #    # #    #
-        * #####   #    # #   #      ######  #####  #      #    # #    #
-        * #       #    # #   #      #     # #      #      #    # # ## #
-        * #       #    # #   #      #     # #      #      #    # ##  ##
-        * ####### #####  #   #      ######  ###### ######  ####  #    #
-        */
-
         // Get motors
         SmartMotor bl = new SmartMotor(l.hardwareMap.get(DcMotorEx.class, Naming.MOTOR_BL));
         SmartMotor br = new SmartMotor(l.hardwareMap.get(DcMotorEx.class, Naming.MOTOR_BR));
         SmartMotor fl = new SmartMotor(l.hardwareMap.get(DcMotorEx.class, Naming.MOTOR_FL));
         SmartMotor fr = new SmartMotor(l.hardwareMap.get(DcMotorEx.class, Naming.MOTOR_FR));
+
+        SmartMotor duck = new SmartMotor(l.hardwareMap.get(DcMotorEx.class, Naming.MOTOR_DUCK));
 
         Movement.motors = new HashMap<>();
         Movement.motors.put(Naming.MOTOR_BL, bl);
@@ -54,14 +46,25 @@ public class InitRobot {
         Movement.motors.put(Naming.MOTOR_FL, fl);
         Movement.motors.put(Naming.MOTOR_FR, fr);
 
+        Movement.motors.put(Naming.MOTOR_DUCK, duck);
+
         // Get servos
         SmartServo armBaseLeft = new SmartServo(l.hardwareMap.get(Servo.class, Naming.SERVO_ARM_LEFT));
         SmartServo armBaseRight = new SmartServo(l.hardwareMap.get(Servo.class, Naming.SERVO_ARM_RIGHT));
+        SmartServo clawLeft = new SmartServo(l.hardwareMap.get(Servo.class, Naming.SERVO_CLAW_LEFT));
+        SmartServo clawRight = new SmartServo(l.hardwareMap.get(Servo.class, Naming.SERVO_CLAW_RIGHT));
+
+        armBaseLeft.setDirection(Servo.Direction.FORWARD);
+        armBaseRight.setDirection(Servo.Direction.REVERSE);
+        clawRight.setDirection(Servo.Direction.REVERSE);
+        clawLeft.setDirection(Servo.Direction.FORWARD);
 
         // Add servos into the list
         Movement.servos = new HashMap<>();
         Movement.servos.put(Naming.SERVO_ARM_LEFT, armBaseLeft);
         Movement.servos.put(Naming.SERVO_ARM_RIGHT, armBaseRight);
+        Movement.servos.put(Naming.SERVO_CLAW_LEFT, clawLeft);
+        Movement.servos.put(Naming.SERVO_CLAW_RIGHT, clawRight);
 
         // Add CRServos into the list
         Movement.crServos = new HashMap<>();

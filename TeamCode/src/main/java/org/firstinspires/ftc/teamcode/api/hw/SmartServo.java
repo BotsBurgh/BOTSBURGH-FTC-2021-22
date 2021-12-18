@@ -17,10 +17,14 @@
  * (https://github.com/OutoftheBoxFTC/SkyStone/blob/EeshwarTesting/TeamCode/src/main/java/HardwareSystems/HardwareDevices/SmartServo.java)
  */
 
-package org.firstinspires.ftc.teamcode.API.HW;
+package org.firstinspires.ftc.teamcode.api.hw;
+
+import android.os.SystemClock;
 
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.ServoImplEx;
+
+import org.firstinspires.ftc.teamcode.api.Robot;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -29,6 +33,7 @@ public class SmartServo {
     private final ServoImplEx servo;
     @Getter private double position;
     @Getter @Setter private double step = 0.001;
+    @Getter private boolean lock = false;
 
     // Motor configuration
     @Getter @Setter double maxPos = 1;
@@ -69,5 +74,50 @@ public class SmartServo {
 
     public void setDirection(Servo.Direction direction) {
         servo.setDirection(direction);
+    }
+
+    /**
+     * Scan the servo (move the servo slowly) to a position.
+     * @param position Position (in on a scale of  0-1) to scan the servo to.
+     * @param ms Time to scan
+     */
+    private void scanServo(double position, int ms) {
+        boolean direction = position > servo.getPosition();
+        long lastLoopStart = System.nanoTime();
+        int sleep;
+        while (Math.abs(servo.getPosition() - position) < 0.001) {
+            sleep = (int)(position/ms - Math.abs(lastLoopStart - System.nanoTime())*1000);
+            if (direction) {
+                // Scan up
+                servo.setPosition(servo.getPosition() + step);
+            } else {
+                // Scan down
+                servo.setPosition(servo.getPosition() - step);
+            }
+            SystemClock.sleep(sleep);
+        }
+    }
+
+    public void scanServoAsync(double position, int ms) {
+        if (lock) {
+            return;
+        }
+        lock = true;
+        Robot.executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                scanServo(position, ms);
+            }
+        });
+        lock = false;
+    }
+
+    public void scanServoSync(double position, int ms) {
+        if (lock) {
+            return;
+        }
+        lock = true;
+        scanServo(position, ms);
+        lock = false;
     }
 }

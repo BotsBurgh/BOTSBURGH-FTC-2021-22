@@ -1,14 +1,10 @@
-package org.firstinspires.ftc.teamcode.API.HW;
+package org.firstinspires.ftc.teamcode.api.hw;
 
 import static android.graphics.Color.RGBToHSV;
-
-import android.graphics.Color;
 
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.util.Range;
-
-import java.util.Objects;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -18,7 +14,17 @@ public class SmartColorSensor {
     @Setter private double blackThresh  = 0.2;
     @Setter private double whiteThresh  = 0.9;
 
-    @Setter private double redThresh, greenThresh, blueThresh;
+    public int getRed() {
+        return (int) Range.clip(this.getNormalizedColors().red * 255 * redFudge, 0, 255);
+    }
+
+    public int getGreen() {
+        return (int) Range.clip(this.getNormalizedColors().green * 255 * greenFudge, 0, 255);
+    }
+
+    public int getBlue() {
+        return (int) Range.clip(this.getNormalizedColors().blue * 255 * blueFudge, 0, 255);
+    }
 
     public enum Color {
         RED,

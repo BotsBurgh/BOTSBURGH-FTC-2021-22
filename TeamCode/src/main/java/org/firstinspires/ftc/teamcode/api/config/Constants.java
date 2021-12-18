@@ -1,8 +1,4 @@
-package org.firstinspires.ftc.teamcode.API.Config;
-
-import com.qualcomm.robotcore.hardware.PIDFCoefficients;
-
-import org.firstinspires.ftc.teamcode.API.Sensor;
+package org.firstinspires.ftc.teamcode.api.config;
 
 public class Constants {
     public static final int    THREADS          = 4;

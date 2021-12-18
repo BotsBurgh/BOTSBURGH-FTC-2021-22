@@ -17,7 +17,7 @@
  * (https://github.com/OutoftheBoxFTC/SkyStone/blob/EeshwarTesting/TeamCode/src/main/java/HardwareSystems/HardwareDevices/SmartMotor.java)
  */
 
-package org.firstinspires.ftc.teamcode.API.HW;
+package org.firstinspires.ftc.teamcode.api.hw;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.API.HW;
+package org.firstinspires.ftc.teamcode.api.hw;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
@@ -7,8 +7,6 @@ import com.qualcomm.robotcore.util.ReadWriteFile;
 import org.firstinspires.ftc.robotcore.internal.system.AppUtil;
 
 import java.io.File;
-
-import lombok.Getter;
 
 public class Gyroscope {
     private final BNO055IMU gyro;

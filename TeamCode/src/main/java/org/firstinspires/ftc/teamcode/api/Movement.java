@@ -14,15 +14,13 @@ DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-package org.firstinspires.ftc.teamcode.API;
-
-import android.os.SystemClock;
+package org.firstinspires.ftc.teamcode.api;
 
 import com.qualcomm.robotcore.hardware.CRServo;
 
-import org.firstinspires.ftc.teamcode.API.Config.Naming;
-import org.firstinspires.ftc.teamcode.API.HW.SmartMotor;
-import org.firstinspires.ftc.teamcode.API.HW.SmartServo;
+import org.firstinspires.ftc.teamcode.api.config.Naming;
+import org.firstinspires.ftc.teamcode.api.hw.SmartMotor;
+import org.firstinspires.ftc.teamcode.api.hw.SmartServo;
 
 import java.util.HashMap;
 import java.util.Objects;
@@ -45,7 +43,7 @@ public class Movement {
      * @param blPower Power to the back left wheel
      * @param brPower Power to the back right wheel
      */
-    public void move4x4(double flPower, double frPower, double blPower, double brPower) {
+    public static void move4x4(double flPower, double frPower, double blPower, double brPower) {
         Objects.requireNonNull(motors.get(Naming.MOTOR_FL)).setPower(flPower);
         Objects.requireNonNull(motors.get(Naming.MOTOR_FR)).setPower(frPower);
         Objects.requireNonNull(motors.get(Naming.MOTOR_BL)).setPower(blPower);
@@ -56,7 +54,7 @@ public class Movement {
      * Moves each of the four motors individually. Best for mecanum drives.
      * @param power Power to all the wheels
      */
-    public void move1x4(double power) {
+    public static void move1x4(double power) {
         move4x4(power,power,power,power);
     }
 
@@ -66,7 +64,7 @@ public class Movement {
      * @param lPower Power to the left side
      * @param rPower Power to the right side
      */
-    public void move2x4(double lPower, double rPower) {
+    public static void move2x4(double lPower, double rPower) {
         move4x4(lPower, rPower, lPower, rPower);
     }
 
@@ -75,43 +73,13 @@ public class Movement {
      * @param lPower Power sent to back left motor
      * @param rPower Power sent to back right motor
      */
-    public void move2x2(double lPower, double rPower) {
+    public static void move2x2(double lPower, double rPower) {
         Objects.requireNonNull(motors.get(Naming.MOTOR_BL)).setPower(lPower);
         Objects.requireNonNull(motors.get(Naming.MOTOR_BR)).setPower(rPower);
     }
 
     // TODO: Javadoc
-    public void move1x2(double power) {
+    public static void move1x2(double power) {
         move2x2(power, power);
-    }
-
-    /**
-     * Scan the servo (move the servo slowly) to a position.
-     * @param id ID of servo
-     * @param degrees Position (in on a scale of  0-1) to scan the servo to.
-     * @param ms Time to scan
-     */
-    public void scanServo(String id, double degrees, boolean direction, int ms) {
-        // Run in another thread
-        Robot.executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                SmartServo servo = Objects.requireNonNull(servos.get(id));
-                double step = servo.getStep();
-                long lastLoopStart = System.nanoTime();
-                int sleep;
-                while (Math.abs(servo.getPosition() - degrees) < 0.001) {
-                    sleep = (int)(degrees/ms - Math.abs(lastLoopStart - System.nanoTime())*1000);
-                    if (direction) {
-                        // Scan up
-                        servo.setPosition(servo.getPosition() + step);
-                    } else {
-                        // Scan down
-                        servo.setPosition(servo.getPosition() - step);
-                    }
-                    SystemClock.sleep(sleep);
-                }
-            }
-        });
     }
 }

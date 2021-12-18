@@ -14,12 +14,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package org.firstinspires.ftc.teamcode.API;
+package org.firstinspires.ftc.teamcode.api;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-import org.firstinspires.ftc.teamcode.API.HW.SmartColorSensor.Color;
+import org.firstinspires.ftc.teamcode.api.config.Naming;
+import org.firstinspires.ftc.teamcode.api.hw.SmartColorSensor.Color;
 
+import java.util.Objects;
 import java.util.concurrent.Executor;
 
 import lombok.Builder;
@@ -46,11 +48,24 @@ public class Robot {
         while (true) {
             Color color = Sensor.colorSensors.get(sensor).getRGB();
             if (color == targetColor) {
-                movement.move1x4(0);
+                Movement.move1x4(0);
                 break;
             } else {
-                movement.move1x4(power);
+                Movement.move1x4(power);
             }
         }
+    }
+
+    public static void spinDuck(double power) {
+        Objects.requireNonNull(Movement.motors.get(Naming.MOTOR_DUCK)).setPower(power);
+    }
+
+    public static void openClaw() {
+        Objects.requireNonNull(Movement.servos.get(Naming.SERVO_CLAW_LEFT)).setPosition(0.9);
+        Objects.requireNonNull(Movement.servos.get(Naming.SERVO_CLAW_RIGHT)).setPosition(0.9);
+    }
+    public static void closeClaw() {
+        Objects.requireNonNull(Movement.servos.get(Naming.SERVO_CLAW_LEFT)).setPosition(0.2);
+        Objects.requireNonNull(Movement.servos.get(Naming.SERVO_CLAW_RIGHT)).setPosition(0.2);
     }
 }

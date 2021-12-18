@@ -14,23 +14,18 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package org.firstinspires.ftc.teamcode.API;
+package org.firstinspires.ftc.teamcode.api;
 
-import com.qualcomm.hardware.bosch.BNO055IMU;
-import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.API.HW.Button;
-import org.firstinspires.ftc.teamcode.API.HW.Encoder;
-import org.firstinspires.ftc.teamcode.API.HW.Gyroscope;
-import org.firstinspires.ftc.teamcode.API.HW.SmartColorSensor;
-import org.firstinspires.ftc.teamcode.API.HW.Potentiometer;
+import org.firstinspires.ftc.teamcode.api.hw.Button;
+import org.firstinspires.ftc.teamcode.api.hw.Encoder;
+import org.firstinspires.ftc.teamcode.api.hw.Gyroscope;
+import org.firstinspires.ftc.teamcode.api.hw.SmartColorSensor;
+import org.firstinspires.ftc.teamcode.api.hw.Potentiometer;
 
 import java.util.HashMap;
-import java.util.Objects;
-
-import lombok.Getter;
 
 /**
  * The Sensor class.
