@@ -14,8 +14,6 @@ public class MoveController extends LinearOpMode {
     public void runOpMode() {
         Robot robot = new Robot(this);
 
-        robot.backRight.setDirection(DcMotor.Direction.REVERSE);
-
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
@@ -25,13 +23,19 @@ public class MoveController extends LinearOpMode {
         telemetry.update();
 
         while (opModeIsActive()) {
-            double joystick_y = gamepad1.left_stick_y;
-            double joystick_x = gamepad1.right_stick_x;
+            double x1 = gamepad1.left_stick_x;
+            double y1 = gamepad1.left_stick_y;
+            double rotation = gamepad1.right_stick_x;
 
-            robot.frontLeft.setPower(Range.clip((-joystick_y - joystick_x), -1, 1));
-            robot.frontRight.setPower(Range.clip((joystick_y + joystick_x), -1, 1));
-            robot.backLeft.setPower(Range.clip((-joystick_y - joystick_x), -1, 1));
-            robot.backRight.setPower(Range.clip((-joystick_y + joystick_x), -1, 1));
+            double flPower = Range.clip(( x1 - y1 + rotation), -1.0, 1.0);
+            double blPower = Range.clip((-x1 - y1 + rotation), -1.0, 1.0);
+            double brPower = Range.clip(( x1 - y1 - rotation), -1.0, 1.0);
+            double frPower = Range.clip((-x1 - y1 - rotation), -1.0, 1.0);
+
+            robot.frontLeft.setPower(flPower);
+            robot.frontRight.setPower(frPower);
+            robot.backRight.setPower(brPower);
+            robot.backLeft.setPower(blPower);
 
             if (gamepad1.left_bumper) {
                 robot.spinDuck(1);
@@ -64,8 +68,6 @@ public class MoveController extends LinearOpMode {
             telemetry.addData("Servo amount", robot.armBase.getPosition());
             telemetry.addData("Servo amount claw", robot.claw.getPosition());
             telemetry.addData("Servo amount mirror", robot.clawMirror.getPosition());
-
-
 
             telemetry.update();
         }

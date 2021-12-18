@@ -30,6 +30,8 @@ public class Robot extends AbstractRobot {
         this.frontRight = new SmartMotor(opMode.hardwareMap.get(DcMotor.class, Hardware.FRONT_RIGHT), Hardware.FRONT_RIGHT_MOD);
         this.backLeft = new SmartMotor(opMode.hardwareMap.get(DcMotor.class, Hardware.BACK_LEFT), Hardware.BACK_LEFT_MOD);
         this.backRight = new SmartMotor(opMode.hardwareMap.get(DcMotor.class, Hardware.BACK_RIGHT), Hardware.BACK_RIGHT_MOD);
+        frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
         this.duck = opMode.hardwareMap.get(DcMotor.class, Hardware.DUCK);
 
