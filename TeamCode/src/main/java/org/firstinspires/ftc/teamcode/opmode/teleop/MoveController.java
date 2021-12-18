@@ -38,9 +38,9 @@ public class MoveController extends LinearOpMode {
             robot.backLeft.setPower(blPower);
 
             if (gamepad1.left_bumper) {
-                robot.spinDuck(1);
+                robot.spinDuck(0.7);
             } else if (gamepad1.right_bumper) {
-                robot.spinDuck(-1);
+                robot.spinDuck(-0.7);
             } else {
                 robot.spinDuck(0);
             }

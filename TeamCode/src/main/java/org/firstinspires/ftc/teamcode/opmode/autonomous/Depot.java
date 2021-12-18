@@ -17,7 +17,7 @@ public class Depot extends LinearOpMode {
         waitForStart();
         telemetry.addData("Status", "Running");
         robot.moveAll(1);
-        sleep(5000);
+        sleep(2000);
         robot.moveAll(0);
     }
 }
