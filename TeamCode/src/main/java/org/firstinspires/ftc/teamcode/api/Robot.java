@@ -38,6 +38,7 @@ public class Robot extends AbstractRobot {
 
         this.claw = opMode.hardwareMap.get(Servo.class, Hardware.CLAW);
         this.clawMirror = opMode.hardwareMap.get(Servo.class, Hardware.CLAW_MIRROR);
+        this.clawMirror.setDirection(Servo.Direction.REVERSE);
 
         this.armBaseMirror.setDirection(Servo.Direction.REVERSE);
         this.clawMirror.setDirection(Servo.Direction.REVERSE);
@@ -77,15 +78,14 @@ public class Robot extends AbstractRobot {
     }
 
     public void spinArmBase(double amount) {
-        if (!(this.armBase.getPosition() + amount < 0.41)) {
             this.armBase.setPosition(this.armBase.getPosition() + amount);
             this.armBaseMirror.setPosition(this.armBaseMirror.getPosition() + amount);
         }
-    }
 
-    public void moveClaw(double amount) {
-        this.claw.setPosition(this.claw.getPosition() + amount);
-        this.clawMirror.setPosition(this.clawMirror.getPosition() + amount);
+
+    public void moveClaw(double position) {
+        this.claw.setPosition(position);
+        this.clawMirror.setPosition(position);
     }
 
     public void setMotorsDirection(@NonNull DcMotor[] motors, DcMotor.Direction direction) {

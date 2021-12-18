@@ -49,19 +49,12 @@ public class MoveController extends LinearOpMode {
                 robot.spinArmBase(-0.01);
                 telemetry.addData("dpad", "down");
                 sleep(15);
-            } else {
-                robot.spinArmBase(0);
-                telemetry.addData("dpad", "none");
             }
 
-            if (gamepad1.a) {
+            if (gamepad1.a) { // Open
+                robot.moveClaw(0.9);
+            } else if (gamepad1.b) { // Close
                 robot.moveClaw(0.2);
-                sleep(15);
-            } else if (gamepad1.b) {
-                robot.moveClaw(-0.2);
-                sleep(15);
-            } else {
-                robot.moveClaw(0);
             }
 
             if (gamepad1.y) {
@@ -69,6 +62,10 @@ public class MoveController extends LinearOpMode {
             }
 
             telemetry.addData("Servo amount", robot.armBase.getPosition());
+            telemetry.addData("Servo amount claw", robot.claw.getPosition());
+            telemetry.addData("Servo amount mirror", robot.clawMirror.getPosition());
+
+
 
             telemetry.update();
         }
