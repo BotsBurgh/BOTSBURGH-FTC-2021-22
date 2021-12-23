@@ -25,7 +25,7 @@ import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.teamcode.api.config.Naming;
 import org.firstinspires.ftc.teamcode.api.InitRobot;
 import org.firstinspires.ftc.teamcode.api.Movement;
-import org.firstinspires.ftc.teamcode.api.Robot;
+import org.firstinspires.ftc.teamcode.api.OldRobot;
 
 import java.util.Objects;
 
@@ -58,11 +58,11 @@ public class TeleOpMain extends LinearOpMode {
             Movement.move4x4(flPower, frPower, blPower, brPower);
 
             if (gamepad1.left_bumper) {
-                Robot.spinDuck(0.7);
+                OldRobot.spinDuck(0.7);
             } else if (gamepad1.right_bumper) {
-                Robot.spinDuck(-0.7);
+                OldRobot.spinDuck(-0.7);
             } else {
-                Robot.spinDuck(0);
+                OldRobot.spinDuck(0);
             }
 
             if (gamepad1.dpad_up) {
@@ -82,9 +82,9 @@ public class TeleOpMain extends LinearOpMode {
             }
 
             if (gamepad1.a) { // Open
-                Robot.openClaw();
+                OldRobot.openClaw();
             } else if (gamepad1.b) { // Close
-                Robot.closeClaw();
+                OldRobot.closeClaw();
             }
 
             telemetry.update();

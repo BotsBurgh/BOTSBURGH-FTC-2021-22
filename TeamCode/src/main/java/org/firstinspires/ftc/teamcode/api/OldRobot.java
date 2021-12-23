@@ -34,7 +34,7 @@ import lombok.Builder;
  * add it to our GitHub issues page at https://github.com/botsburgh/BOTSBURGH-FTC-2020-21/issues
  */
 @Builder
-public class Robot {
+public class OldRobot {
     public static Sensor sensor;
     public static Movement movement;
     public static OpMode opMode;
