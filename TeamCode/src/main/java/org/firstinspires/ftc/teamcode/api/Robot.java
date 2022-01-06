@@ -16,56 +16,159 @@
 
 package org.firstinspires.ftc.teamcode.api;
 
+import androidx.annotation.NonNull;
+
+import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
+import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.teamcode.api.bp.AbstractRobot;
+import org.firstinspires.ftc.teamcode.api.bp.ArmRobot;
+import org.firstinspires.ftc.teamcode.api.bp.WheeledRobot;
+import org.firstinspires.ftc.teamcode.api.config.Constants;
 import org.firstinspires.ftc.teamcode.api.config.Naming;
-import org.firstinspires.ftc.teamcode.api.hw.SmartColorSensor.Color;
+import org.firstinspires.ftc.teamcode.api.hw.Gyroscope;
+import org.firstinspires.ftc.teamcode.api.hw.SmartColorSensor;
+import org.firstinspires.ftc.teamcode.api.hw.SmartMotor;
+import org.firstinspires.ftc.teamcode.api.hw.SmartServo;
 
-import java.util.Objects;
-import java.util.concurrent.Executor;
+public class Robot extends AbstractRobot implements WheeledRobot, ArmRobot {
+    // Discuss if private is better idea
+    public SmartMotor bl, br, fl, fr, duck;
+    public SmartServo armLeft, armRight, clawLeft, clawRight;
+    public SmartColorSensor parkSensor;
+    public WebcamName webcam0;
+    public Gyroscope gyro0, gyro1;
+    private OpMode opMode;
 
-import lombok.Builder;
-
-/**
- * Integrates Sensor class and Movement class so we can use VuForia and motors in one function.
- * Use like so: Robot robot = new Robot(new Sensor(whatever), new Movement(whatever));
- * Refer to Movement and Sensor classes for more information on what those classes do.
- * NOTE: You really should edit this file to suit your robot. If you find an error occurring here,
- * add it to our GitHub issues page at https://github.com/botsburgh/BOTSBURGH-FTC-2020-21/issues
- */
-@Builder
-public class Robot {
-    public static Sensor sensor;
-    public static Movement movement;
-    public static OpMode opMode;
-    public static Executor executor;
-
-    public static void whiteLine(String sensor, double power) {
-        driveToColor(sensor, power, Color.WHITE);
+    public Robot(OpMode opMode) {
+        super(opMode);
     }
 
-    public static void driveToColor(String sensor, double power, Color targetColor) {
-        while (true) {
-            Color color = Sensor.colorSensors.get(sensor).getRGB();
-            if (color == targetColor) {
-                Movement.move1x4(0);
-                break;
-            } else {
-                Movement.move1x4(power);
-            }
+    // Wheels
+    @Override
+    public void powerWheels(double flPower, double frPower, double blPower, double brPower) {
+        this.fl.setPower(flPower);
+        this.fr.setPower(frPower);
+        this.bl.setPower(blPower);
+        this.br.setPower(brPower);
+    }
+
+    // Arm
+
+    /*
+    * The actual arm base uses asynchronous code, so that
+    * will not be implemented until this gets tested
+    */
+
+    @Override
+    public void positionClaw(double position) {
+        this.clawLeft.setPosition(position);
+        this.clawRight.setPosition(position);
+    }
+
+    @Override
+    public void adjustClaw(double amount) {
+        // Version 1
+        this.clawLeft.setPosition(this.clawLeft.getPosition() + amount);
+        this.clawRight.setPosition(this.clawRight.getPosition() + amount);
+
+        // Version 2
+
+        /*
+        * double finalPosition = this.clawLeft.getPosition() + amount;
+        * this.clawLeft.setPosition(finalPosition);
+        * this.clawRight.setPosition(finalPosition);
+        */
+    }
+
+    @Override
+    public void openClaw() {
+        this.positionClaw(0.9);
+    }
+
+    @Override
+    public void closeClaw() {
+        this.positionClaw(0.2);
+    }
+
+    @Override
+    public void powerDuck(double power) {
+        this.duck.setPower(power);
+    }
+
+    @Override
+    public void initTeleOp(@NonNull OpMode opMode) {
+        // For future reference
+        this.opMode = opMode;
+
+        // InitRobot has an executor service, not sure if that should be included here
+
+        // Motors
+        this.bl = new SmartMotor(opMode.hardwareMap.get(DcMotorEx.class, Naming.MOTOR_BL));
+        this.br = new SmartMotor(opMode.hardwareMap.get(DcMotorEx.class, Naming.MOTOR_BR));
+        this.fl = new SmartMotor(opMode.hardwareMap.get(DcMotorEx.class, Naming.MOTOR_FL));
+        this.fr = new SmartMotor(opMode.hardwareMap.get(DcMotorEx.class, Naming.MOTOR_FR));
+
+        this.duck = new SmartMotor(opMode.hardwareMap.get(DcMotorEx.class, Naming.MOTOR_DUCK));
+
+        // Servos
+        this.armLeft = new SmartServo(opMode.hardwareMap.get(Servo.class, Naming.SERVO_ARM_LEFT));
+        this.armRight = new SmartServo(opMode.hardwareMap.get(Servo.class, Naming.SERVO_ARM_RIGHT));
+        this.clawLeft = new SmartServo(opMode.hardwareMap.get(Servo.class, Naming.SERVO_CLAW_LEFT));
+        this.clawRight = new SmartServo(opMode.hardwareMap.get(Servo.class, Naming.SERVO_CLAW_RIGHT));
+
+        /*
+        // Sensors
+        this.parkSensor = new SmartColorSensor(
+                (NormalizedColorSensor) opMode.hardwareMap.get(ColorSensor.class, Naming.COLOR_SENSOR_PARK)
+        );
+        this.webcam0 = opMode.hardwareMap.get(WebcamName.class, Naming.WEBCAM_0);
+        this.gyro0 = new Gyroscope(opMode.hardwareMap.get(BNO055IMU.class, Naming.GYRO_0), Naming.GYRO_0);
+        this.gyro1 = new Gyroscope(opMode.hardwareMap.get(BNO055IMU.class, Naming.GYRO_1), Naming.GYRO_1);
+        */
+
+        // Looped Config
+        SmartMotor[] wheelLoop = new SmartMotor[]{this.fl, this.fr, this.bl, this.br};
+        SmartServo[] servoLoop = new SmartServo[]{this.armLeft, this.armRight, this.clawLeft, this.clawRight};
+        Gyroscope[] gyroLoop = new Gyroscope[]{this.gyro0, this.gyro1};
+
+        for (SmartMotor motor : wheelLoop) {
+            motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         }
-    }
 
-    public static void spinDuck(double power) {
-        Objects.requireNonNull(Movement.motors.get(Naming.MOTOR_DUCK)).setPower(power);
-    }
+        for (SmartServo servo : servoLoop) {
+            servo.setPosition(servo.getPosition());
+        }
 
-    public static void openClaw() {
-        Objects.requireNonNull(Movement.servos.get(Naming.SERVO_CLAW_LEFT)).setPosition(0.9);
-        Objects.requireNonNull(Movement.servos.get(Naming.SERVO_CLAW_RIGHT)).setPosition(0.9);
-    }
-    public static void closeClaw() {
-        Objects.requireNonNull(Movement.servos.get(Naming.SERVO_CLAW_LEFT)).setPosition(0.2);
-        Objects.requireNonNull(Movement.servos.get(Naming.SERVO_CLAW_RIGHT)).setPosition(0.2);
+        /*for (Gyroscope gyro : gyroLoop) {
+            gyro.initGyro();
+        }*/
+
+        // Specific Config
+        this.bl.setDirection(DcMotor.Direction.FORWARD);
+        this.br.setDirection(DcMotor.Direction.FORWARD);
+        this.fl.setDirection(DcMotor.Direction.REVERSE);
+        this.fr.setDirection(DcMotor.Direction.REVERSE);
+
+        this.armLeft.setDirection(Servo.Direction.FORWARD);
+        this.armRight.setDirection(Servo.Direction.REVERSE);
+        this.clawLeft.setDirection(Servo.Direction.FORWARD);
+        this.clawRight.setDirection(Servo.Direction.REVERSE);
+
+        this.bl.setPowerModifier(Constants.MOTOR_BL_POWER_MOD);
+        this.br.setPowerModifier(Constants.MOTOR_BR_POWER_MOD);
+        this.fl.setPowerModifier(Constants.MOTOR_FL_POWER_MOD);
+        this.fr.setPowerModifier(Constants.MOTOR_FR_POWER_MOD);
+
+        /*this.parkSensor.setRedFudge(Constants.PARK_RED_FUDGE);
+        this.parkSensor.setGreenFudge(Constants.PARK_GREEN_FUDGE);
+        this.parkSensor.setBlueFudge(Constants.PARK_BLUE_FUDGE);*/
     }
 }

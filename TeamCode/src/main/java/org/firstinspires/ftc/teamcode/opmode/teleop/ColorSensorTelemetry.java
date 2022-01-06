@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.api.config.Naming;
 import org.firstinspires.ftc.teamcode.api.hw.SmartColorSensor;
-import org.firstinspires.ftc.teamcode.api.InitRobot;
+import org.firstinspires.ftc.teamcode.api.Robot;
 import org.firstinspires.ftc.teamcode.api.Sensor;
 
 /*
@@ -21,7 +21,7 @@ import org.firstinspires.ftc.teamcode.api.Sensor;
 public class ColorSensorTelemetry extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
-        InitRobot.init(this);
+        Robot robot = new Robot(this);
 
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
         SmartColorSensor sensor;

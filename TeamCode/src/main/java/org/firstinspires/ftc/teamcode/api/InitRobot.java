@@ -123,7 +123,7 @@ public class InitRobot {
 
         Sensor.encoders = new HashMap<>();
 
-        Robot.opMode = l;
+        OldRobot.opMode = l;
 
         // Send power to servos so they don't move
         for (String key : Movement.servos.keySet()) {
