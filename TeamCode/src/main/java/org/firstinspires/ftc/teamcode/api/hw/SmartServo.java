@@ -29,6 +29,9 @@ import org.firstinspires.ftc.teamcode.api.Robot;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * An extension of the servo class with some additional features that are useful
+ */
 public class SmartServo {
     private final ServoImplEx servo;
     @Getter private double position;
@@ -45,6 +48,10 @@ public class SmartServo {
         this.servo.setPwmDisable();
     }
 
+    /**
+     * Sets the position of the servo
+     * @param position Position to set the servo to, with bounds as well as direct PWM control
+     */
     public void setPosition(double position) {
         if (this.position != position) {
             this.position = position;
@@ -64,6 +71,9 @@ public class SmartServo {
         }
     }
 
+    /**
+     * Disables the servo
+     */
     public void disableServo() {
         if (servo.isPwmEnabled()) {
             servo.setPwmDisable();
@@ -72,6 +82,10 @@ public class SmartServo {
         }
     }
 
+    /**
+     * Sets the direction of the servo
+     * @param direction Servo direction to set to
+     */
     public void setDirection(Servo.Direction direction) {
         servo.setDirection(direction);
     }
@@ -98,6 +112,11 @@ public class SmartServo {
         }
     }
 
+    /**
+     * Scans the servo in a new thread. This is locked, so the servo cannot be modified while this program is running
+     * @param position Position to scan to
+     * @param ms Time to scan to position
+     */
     public void scanServoAsync(double position, int ms) {
         if (lock) {
             return;
@@ -112,6 +131,11 @@ public class SmartServo {
         lock = false;
     }
 
+    /**
+     * Scans the servo in the main thread. This also respects the lock.
+     * @param position Position to scan to
+     * @param ms Time to scan to position
+     */
     public void scanServoSync(double position, int ms) {
         if (lock) {
             return;
@@ -119,5 +143,13 @@ public class SmartServo {
         lock = true;
         scanServo(position, ms);
         lock = false;
+    }
+
+    /**
+     * Stops all threads and unlocks the servo
+     */
+    // TODO: Use handler to manipulate this thread
+    public void unlock() {
+        if (lock) return;
     }
 }

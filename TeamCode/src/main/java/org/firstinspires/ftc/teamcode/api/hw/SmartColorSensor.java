@@ -9,23 +9,41 @@ import com.qualcomm.robotcore.util.Range;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * A color sensor with
+ */
 public class SmartColorSensor {
     private final NormalizedColorSensor sensor;
     @Setter private double blackThresh  = 0.2;
     @Setter private double whiteThresh  = 0.9;
 
+    /**
+     * Gets the red value of the sensor
+     * @return Red value 0-255
+     */
     public int getRed() {
         return (int) Range.clip(this.getNormalizedColors().red * 255 * redFudge, 0, 255);
     }
 
+    /**
+     * Gets the green value of the sensor
+     * @return Green value 0-255
+     */
     public int getGreen() {
         return (int) Range.clip(this.getNormalizedColors().green * 255 * greenFudge, 0, 255);
     }
 
+    /**
+     * Gets the blue value of the sensor
+     * @return Blue value 0-255
+     */
     public int getBlue() {
         return (int) Range.clip(this.getNormalizedColors().blue * 255 * blueFudge, 0, 255);
     }
 
+    /**
+     * Simple colors that we would typically see on the playing field
+     */
     public enum Color {
         RED,
         ORANGE,
@@ -50,6 +68,10 @@ public class SmartColorSensor {
         return sensor.getNormalizedColors();
     }
 
+    /**
+     * Gets RGB of the color sensor, converts to HSV, then categorizes the color
+     * @return Color the sensor detects
+     */
     public Color getRGB() {
         float[] hsv = new float[3];
         RGBToHSV(

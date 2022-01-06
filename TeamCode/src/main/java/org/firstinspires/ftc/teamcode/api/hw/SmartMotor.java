@@ -27,6 +27,9 @@ import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigu
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * An extension of the DcMotor that has some enhancements to make everything run smoother.
+ */
 public class SmartMotor {
     private final DcMotorEx motor;
     @Getter private double power;
@@ -44,7 +47,7 @@ public class SmartMotor {
     }
 
     public SmartMotor(DcMotorEx motor) {
-        this(motor, 2048);
+        this(motor, 2048); // Default value of 2048, since some motors will not use this value and it is a sane default
     }
 
     public void setPower(double power) {

@@ -10,8 +10,13 @@ import java.io.File;
 
 public class Gyroscope {
     private final BNO055IMU gyro;
-    private final String calibrationFile;
+    private final String calibrationFile; // Calibration for the gyros is stored in a file for quicker startups
 
+    /**
+     * Gyroscope constructor for the BNO055IMU
+     * @param gyro IMU hardware
+     * @param calibrationFile Name of the calibration file. Typically the name of the sensor (ie imu 1)
+     */
     public Gyroscope(BNO055IMU gyro, String calibrationFile) {
         this.gyro = gyro;
         this.calibrationFile = calibrationFile;
