@@ -21,13 +21,14 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.api.InitRobot;
 import org.firstinspires.ftc.teamcode.api.OldRobot;
+import org.firstinspires.ftc.teamcode.api.Robot;
 import org.firstinspires.ftc.teamcode.api.config.Naming;
 
 @TeleOp(name = "Forward!", group = Naming.OPMODE_GROUP_TEST)
 public class Forward extends LinearOpMode {
     @Override
     public void runOpMode() {
-        InitRobot.init(this);
+        Robot robot = new Robot(this);
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -43,13 +44,13 @@ public class Forward extends LinearOpMode {
         waitForStart();
         while(opModeIsActive()) {
             if (gamepad1.x) {
-                OldRobot.movement.move1x4(1);
+                robot.powerWheels(1);
             } else if (gamepad1.y) {
-                OldRobot.movement.move1x4(0.3);
+                robot.powerWheels(0.3);
             } else if (gamepad1.a) {
-                OldRobot.movement.move1x4(-0.2);
+                robot.powerWheels(-0.2);
             } else {
-                OldRobot.movement.move1x4(0);
+                robot.powerWheels(0);
             }
         }
     }

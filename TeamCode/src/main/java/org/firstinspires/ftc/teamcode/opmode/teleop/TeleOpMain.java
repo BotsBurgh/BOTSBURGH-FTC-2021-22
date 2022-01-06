@@ -22,6 +22,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
 
+import org.firstinspires.ftc.teamcode.api.Robot;
 import org.firstinspires.ftc.teamcode.api.config.Naming;
 import org.firstinspires.ftc.teamcode.api.InitRobot;
 import org.firstinspires.ftc.teamcode.api.Movement;
@@ -33,7 +34,7 @@ import java.util.Objects;
 public class TeleOpMain extends LinearOpMode {
     @Override
     public void runOpMode() {
-        InitRobot.init(this);
+        Robot robot = new Robot(this);
 
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 
@@ -55,36 +56,30 @@ public class TeleOpMain extends LinearOpMode {
             double brPower = Range.clip(( x1 - y1 - rotation), -1.0, 1.0);
             double frPower = Range.clip((-x1 - y1 - rotation), -1.0, 1.0);
 
-            Movement.move4x4(flPower, frPower, blPower, brPower);
+            robot.powerWheels(flPower, frPower, blPower, brPower);
 
             if (gamepad1.left_bumper) {
-                OldRobot.spinDuck(0.7);
+                robot.powerDuck(0.7);
             } else if (gamepad1.right_bumper) {
-                OldRobot.spinDuck(-0.7);
+                robot.powerDuck(-0.7);
             } else {
-                OldRobot.spinDuck(0);
+                robot.powerDuck(0);
             }
 
             if (gamepad1.dpad_up) {
-                Objects.requireNonNull(Movement.servos.get(Naming.SERVO_ARM_LEFT)).scanServoAsync(
-                        Objects.requireNonNull(Movement.servos.get(Naming.SERVO_ARM_LEFT)).getPosition() + 0.01, 20
-                );
-                Objects.requireNonNull(Movement.servos.get(Naming.SERVO_ARM_RIGHT)).scanServoAsync(
-                        Objects.requireNonNull(Movement.servos.get(Naming.SERVO_ARM_RIGHT)).getPosition() + 0.01, 20
-                );
+                robot.armLeft.scanServoAsync(robot.armLeft.getPosition() + 0.01, 20);
+                robot.armRight.scanServoAsync(robot.armRight.getPosition() + 0.01, 20);
             } else if (gamepad1.dpad_down) {
-                Objects.requireNonNull(Movement.servos.get(Naming.SERVO_ARM_LEFT)).scanServoAsync(
-                        Objects.requireNonNull(Movement.servos.get(Naming.SERVO_ARM_LEFT)).getPosition() - 0.01, 20
-                );
-                Objects.requireNonNull(Movement.servos.get(Naming.SERVO_ARM_RIGHT)).scanServoAsync(
-                        Objects.requireNonNull(Movement.servos.get(Naming.SERVO_ARM_RIGHT)).getPosition() - 0.01, 20
-                );
+                robot.armLeft.scanServoAsync(robot.armLeft.getPosition() - 0.01, 20);
+                robot.armRight.scanServoAsync(robot.armRight.getPosition() - 0.01, 20);
             }
 
-            if (gamepad1.a) { // Open
-                OldRobot.openClaw();
-            } else if (gamepad1.b) { // Close
-                OldRobot.closeClaw();
+            if (gamepad1.a) {
+                // Open
+                robot.openClaw();
+            } else if (gamepad1.b) {
+                // Close
+                robot.closeClaw();
             }
 
             telemetry.update();
