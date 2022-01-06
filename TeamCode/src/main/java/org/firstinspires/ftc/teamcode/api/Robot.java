@@ -107,6 +107,7 @@ public class Robot extends AbstractRobot implements WheeledRobot, ArmRobot {
         this.clawLeft = new SmartServo(opMode.hardwareMap.get(Servo.class, Naming.SERVO_CLAW_LEFT));
         this.clawRight = new SmartServo(opMode.hardwareMap.get(Servo.class, Naming.SERVO_CLAW_RIGHT));
 
+        /*
         // Sensors
         this.parkSensor = new SmartColorSensor(
                 (NormalizedColorSensor) opMode.hardwareMap.get(ColorSensor.class, Naming.COLOR_SENSOR_PARK)
@@ -114,6 +115,7 @@ public class Robot extends AbstractRobot implements WheeledRobot, ArmRobot {
         this.webcam0 = opMode.hardwareMap.get(WebcamName.class, Naming.WEBCAM_0);
         this.gyro0 = new Gyroscope(opMode.hardwareMap.get(BNO055IMU.class, Naming.GYRO_0), Naming.GYRO_0);
         this.gyro1 = new Gyroscope(opMode.hardwareMap.get(BNO055IMU.class, Naming.GYRO_1), Naming.GYRO_1);
+        */
 
         // Looped Config
         SmartMotor[] wheelLoop = new SmartMotor[]{this.fl, this.fr, this.bl, this.br};
@@ -129,9 +131,9 @@ public class Robot extends AbstractRobot implements WheeledRobot, ArmRobot {
             servo.setPosition(servo.getPosition());
         }
 
-        for (Gyroscope gyro : gyroLoop) {
+        /*for (Gyroscope gyro : gyroLoop) {
             gyro.initGyro();
-        }
+        }*/
 
         // Specific Config
         this.bl.setDirection(DcMotor.Direction.FORWARD);
@@ -144,8 +146,8 @@ public class Robot extends AbstractRobot implements WheeledRobot, ArmRobot {
         this.fl.setPowerModifier(Constants.MOTOR_FL_POWER_MOD);
         this.fr.setPowerModifier(Constants.MOTOR_FR_POWER_MOD);
 
-        this.parkSensor.setRedFudge(Constants.PARK_RED_FUDGE);
+        /*this.parkSensor.setRedFudge(Constants.PARK_RED_FUDGE);
         this.parkSensor.setGreenFudge(Constants.PARK_GREEN_FUDGE);
-        this.parkSensor.setBlueFudge(Constants.PARK_BLUE_FUDGE);
+        this.parkSensor.setBlueFudge(Constants.PARK_BLUE_FUDGE);*/
     }
 }

@@ -6,10 +6,10 @@ package org.firstinspires.ftc.teamcode.api.config;
  */
 public class Naming {
     // Name configuration
-    public static final String MOTOR_FL                           = "fl";
-    public static final String MOTOR_BL                           = "bl";
-    public static final String MOTOR_FR                           = "fr";
-    public static final String MOTOR_BR                           = "br";
+    public static final String MOTOR_FL                           = "frontLeft";
+    public static final String MOTOR_BL                           = "backLeft";
+    public static final String MOTOR_FR                           = "frontRight";
+    public static final String MOTOR_BR                           = "backRight";
 
     public static final String MOTOR_DUCK                         = "duck";
 
