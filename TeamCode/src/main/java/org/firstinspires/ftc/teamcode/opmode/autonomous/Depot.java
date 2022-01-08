@@ -3,8 +3,6 @@ package org.firstinspires.ftc.teamcode.opmode.autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.api.InitRobot;
-import org.firstinspires.ftc.teamcode.api.Movement;
 import org.firstinspires.ftc.teamcode.api.Robot;
 import org.firstinspires.ftc.teamcode.api.config.Naming;
 

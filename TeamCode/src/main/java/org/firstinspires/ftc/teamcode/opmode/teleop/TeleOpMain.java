@@ -24,11 +24,6 @@ import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.api.Robot;
 import org.firstinspires.ftc.teamcode.api.config.Naming;
-import org.firstinspires.ftc.teamcode.api.InitRobot;
-import org.firstinspires.ftc.teamcode.api.Movement;
-import org.firstinspires.ftc.teamcode.api.OldRobot;
-
-import java.util.Objects;
 
 @TeleOp(name = "TeleOp Main", group = Naming.OPMODE_GROUP_COMP)
 public class TeleOpMain extends LinearOpMode {
