@@ -37,7 +37,13 @@ import org.firstinspires.ftc.teamcode.api.hw.SmartColorSensor;
 import org.firstinspires.ftc.teamcode.api.hw.SmartMotor;
 import org.firstinspires.ftc.teamcode.api.hw.SmartServo;
 
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 public class Robot extends AbstractRobot implements WheeledRobot, ArmRobot {
+    public static Executor executor;
+
     // Discuss if private is better idea
     public SmartMotor bl, br, fl, fr, duck;
     public SmartServo armLeft, armRight, clawLeft, clawRight;
@@ -104,6 +110,9 @@ public class Robot extends AbstractRobot implements WheeledRobot, ArmRobot {
 
     @Override
     public void initTeleOp(@NonNull OpMode opMode) {
+        // Threading or something
+        ExecutorService executorService = Executors.newFixedThreadPool(Constants.THREADS);
+
         // For future reference
         this.opMode = opMode;
 

@@ -24,7 +24,7 @@ import android.os.SystemClock;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.ServoImplEx;
 
-import org.firstinspires.ftc.teamcode.api.OldRobot;
+import org.firstinspires.ftc.teamcode.api.Robot;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -103,7 +103,7 @@ public class SmartServo {
             return;
         }
         lock = true;
-        OldRobot.executor.execute(new Runnable() {
+        Robot.executor.execute(new Runnable() {
             @Override
             public void run() {
                 scanServo(position, ms);
