@@ -23,6 +23,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -161,10 +162,10 @@ public class Robot extends AbstractRobot implements WheeledRobot, ArmRobot {
         }*/
 
         // Specific Config
-        this.bl.setDirection(DcMotor.Direction.FORWARD);
-        this.br.setDirection(DcMotor.Direction.FORWARD);
         this.fl.setDirection(DcMotor.Direction.REVERSE);
-        this.fr.setDirection(DcMotor.Direction.REVERSE);
+        this.fr.setDirection(DcMotor.Direction.FORWARD);
+        this.bl.setDirection(DcMotor.Direction.REVERSE);
+        this.br.setDirection(DcMotor.Direction.FORWARD);
 
         this.armLeft.setDirection(Servo.Direction.FORWARD);
         this.armRight.setDirection(Servo.Direction.REVERSE);
