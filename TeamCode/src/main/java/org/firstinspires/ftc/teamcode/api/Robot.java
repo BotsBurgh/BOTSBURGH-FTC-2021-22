@@ -41,6 +41,8 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import lombok.Getter;
+
 public class Robot extends AbstractRobot implements WheeledRobot, ArmRobot {
     public static Executor executor;
 
@@ -49,7 +51,7 @@ public class Robot extends AbstractRobot implements WheeledRobot, ArmRobot {
     public SmartServo armLeft, armRight, clawLeft, clawRight;
     public SmartColorSensor parkSensor;
     public WebcamName webcam0;
-    public Gyroscope gyro0, gyro1;
+    public static Gyroscope gyro0, gyro1;
     private OpMode opMode;
 
     public Robot(OpMode opMode) {

@@ -4,6 +4,9 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.util.ReadWriteFile;
 
+import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+import org.firstinspires.ftc.robotcore.external.navigation.Quaternion;
 import org.firstinspires.ftc.robotcore.internal.system.AppUtil;
 
 import java.io.File;
@@ -11,6 +14,14 @@ import java.io.File;
 public class Gyroscope {
     private final BNO055IMU gyro;
     private final String calibrationFile;
+
+    public Acceleration getAcceleration() {
+        return gyro.getAcceleration();
+    }
+
+    public Quaternion getQuaternionOrientation(){
+        return gyro.getQuaternionOrientation();
+    }
 
     public Gyroscope(BNO055IMU gyro, String calibrationFile) {
         this.gyro = gyro;
