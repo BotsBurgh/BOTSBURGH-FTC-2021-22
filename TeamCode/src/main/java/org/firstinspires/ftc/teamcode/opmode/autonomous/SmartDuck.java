@@ -40,7 +40,7 @@ public class SmartDuck extends LinearOpMode {
         // Spin robot 180 degrees
         ElapsedTime runtime = new ElapsedTime();
 
-        while (runtime.seconds() < 2 && opModeIsActive()) {
+        while (runtime.seconds() < 2.5 && opModeIsActive()) {
             robot.powerWheels(0.5, -0.5, 0.5, -0.5);
         }
 
@@ -51,7 +51,7 @@ public class SmartDuck extends LinearOpMode {
         // Power duck wheel for 15 seconds
         runtime = new ElapsedTime();
 
-        while (runtime.seconds() < 15 && opModeIsActive()) {
+        while (runtime.seconds() < 10 && opModeIsActive()) {
             robot.powerDuck(0.7);
         }
 
@@ -59,6 +59,7 @@ public class SmartDuck extends LinearOpMode {
 
         sleep(500);
 
+        // Move left
         runtime = new ElapsedTime();
 
         while (runtime.seconds() < 1 && opModeIsActive()) {
