@@ -33,7 +33,7 @@ public class SmartServo {
     private final ServoImplEx servo;
     @Getter private double position;
     @Getter @Setter private double step = 0.001;
-    @Getter private boolean lock = false;
+    @Getter private boolean locked = false;
 
     // Motor configuration
     @Getter @Setter double maxPos = 1;
@@ -99,25 +99,20 @@ public class SmartServo {
     }
 
     public void scanServoAsync(double position, int ms) {
-        if (lock) {
+        if (locked) {
             return;
         }
-        lock = true;
-        Robot.executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                scanServo(position, ms);
-            }
-        });
-        lock = false;
+        locked = true;
+        Robot.executorService.execute(() -> scanServo(position, ms));
+        locked = false;
     }
 
     public void scanServoSync(double position, int ms) {
-        if (lock) {
+        if (locked) {
             return;
         }
-        lock = true;
+        locked = true;
         scanServo(position, ms);
-        lock = false;
+        locked = false;
     }
 }

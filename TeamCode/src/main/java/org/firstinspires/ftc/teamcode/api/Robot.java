@@ -45,7 +45,7 @@ import java.util.concurrent.Executors;
 import lombok.Getter;
 
 public class Robot extends AbstractRobot implements WheeledRobot, ArmRobot {
-    public static Executor executor;
+    public static ExecutorService executorService;
 
     // Discuss if private is better idea
     public SmartMotor bl, br, fl, fr, duck;
@@ -141,9 +141,9 @@ public class Robot extends AbstractRobot implements WheeledRobot, ArmRobot {
                 (NormalizedColorSensor) opMode.hardwareMap.get(ColorSensor.class, Naming.COLOR_SENSOR_PARK)
         );
         this.webcam0 = opMode.hardwareMap.get(WebcamName.class, Naming.WEBCAM_0);
-        this.gyro0 = new Gyroscope(opMode.hardwareMap.get(BNO055IMU.class, Naming.GYRO_0), Naming.GYRO_0);
-        this.gyro1 = new Gyroscope(opMode.hardwareMap.get(BNO055IMU.class, Naming.GYRO_1), Naming.GYRO_1);
         */
+        gyro0 = new Gyroscope(opMode.hardwareMap.get(BNO055IMU.class, Naming.GYRO_0), Naming.GYRO_0);
+        gyro1 = new Gyroscope(opMode.hardwareMap.get(BNO055IMU.class, Naming.GYRO_1), Naming.GYRO_1);
 
         // Looped Config
         SmartMotor[] wheelLoop = new SmartMotor[]{this.fl, this.fr, this.bl, this.br};
