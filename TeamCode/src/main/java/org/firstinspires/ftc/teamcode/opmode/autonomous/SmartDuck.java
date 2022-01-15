@@ -28,7 +28,7 @@ public class SmartDuck extends LinearOpMode {
         double distance = (sensorL.getDistance(DistanceUnit.CM) + sensorR.getDistance(DistanceUnit.CM)) / 2;
 
         // Move to duck wheel
-        while (distance > 25) {
+        while (distance > 25 && opModeIsActive()) {
             robot.powerWheels(0.5);
             distance = (sensorL.getDistance(DistanceUnit.CM) + sensorR.getDistance(DistanceUnit.CM)) / 2;
         }
@@ -40,8 +40,8 @@ public class SmartDuck extends LinearOpMode {
         // Spin robot 180 degrees
         ElapsedTime runtime = new ElapsedTime();
 
-        while (runtime.seconds() < 2) {
-            robot.powerWheels(1, -1, 1, -1);
+        while (runtime.seconds() < 2 && opModeIsActive()) {
+            robot.powerWheels(0.5, -0.5, 0.5, -0.5);
         }
 
         robot.powerWheels(0);
@@ -51,7 +51,7 @@ public class SmartDuck extends LinearOpMode {
         // Power duck wheel for 15 seconds
         runtime = new ElapsedTime();
 
-        while (runtime.seconds() < 15) {
+        while (runtime.seconds() < 15 && opModeIsActive()) {
             robot.powerDuck(0.7);
         }
 
@@ -61,7 +61,7 @@ public class SmartDuck extends LinearOpMode {
 
         runtime = new ElapsedTime();
 
-        while (runtime.seconds() < 1) {
+        while (runtime.seconds() < 1 && opModeIsActive()) {
             robot.powerWheels(-1, 1, 1, -1);
         }
 
