@@ -9,7 +9,6 @@ import org.firstinspires.ftc.teamcode.api.config.Naming;
 
 @Autonomous(name = "Move Forward 2", group = Naming.OPMODE_GROUP_COMP)
 public class MoveForward2 extends LinearOpMode {
-    private ElapsedTime runtime;
 
     @Override
     public void runOpMode() {
@@ -24,7 +23,7 @@ public class MoveForward2 extends LinearOpMode {
         telemetry.update();
 
         // Move left a little bit
-        runtime = new ElapsedTime();
+        ElapsedTime runtime = new ElapsedTime();
 
         while (runtime.seconds() < 0.5 && opModeIsActive()) {
             robot.powerWheels(-0.5, 0.5, 0.5, -0.5);
