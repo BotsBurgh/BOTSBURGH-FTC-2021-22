@@ -17,15 +17,22 @@ public class DistanceAuto extends LinearOpMode {
 
         waitForStart();
 
-        while (opModeIsActive()) {
+        boolean running = true;
+        double distance = 100;
+
+        while (distance > 10) {
             double distanceL = sensorL.getDistance(DistanceUnit.CM);
             double distanceR = sensorR.getDistance(DistanceUnit.CM);
-            double distance = (distanceL + distanceR) / 2;
+            distance = (distanceL + distanceR) / 2;
+
+            robot.powerWheels(0.5);
 
             telemetry.addData("Average Distance", distance);
             telemetry.addData("Left Distance", distanceL);
             telemetry.addData("Right Distance", distanceR);
             telemetry.update();
         }
+
+        robot.powerDuck(0);
     }
 }
