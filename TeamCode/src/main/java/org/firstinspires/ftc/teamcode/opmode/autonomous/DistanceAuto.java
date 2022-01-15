@@ -20,7 +20,7 @@ public class DistanceAuto extends LinearOpMode {
         boolean running = true;
         double distance = 100;
 
-        while (distance > 10) {
+        while (distance > 50) {
             double distanceL = sensorL.getDistance(DistanceUnit.CM);
             double distanceR = sensorR.getDistance(DistanceUnit.CM);
             distance = (distanceL + distanceR) / 2;
