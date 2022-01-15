@@ -73,14 +73,12 @@ public class TeleOpMain extends LinearOpMode {
                 robot.armRight.setPosition(Range.clip(robot.armRight.getPosition() + 0.01, 0.6, 1));
             }
 
-            if (robot.armLeft.getPosition() < 0.8) {
-                if (gamepad1.a) {
-                    // Open
-                    robot.openClaw();
-                } else if (gamepad1.b) {
-                    // Close
-                    robot.closeClaw();
-                }
+            if (gamepad1.a) {
+                // Open
+                robot.openClaw();
+            } else if (gamepad1.b) {
+                // Close
+                robot.closeClaw();
             }
 
             telemetry.addData("Arm Left", robot.armLeft.getPosition());
