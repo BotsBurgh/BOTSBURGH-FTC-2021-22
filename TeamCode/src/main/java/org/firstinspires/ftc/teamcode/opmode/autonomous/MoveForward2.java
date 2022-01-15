@@ -6,8 +6,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.api.Robot;
 import org.firstinspires.ftc.teamcode.api.config.Naming;
 
-@Autonomous(name = "Depot", group = Naming.OPMODE_GROUP_COMP)
-public class Depot extends LinearOpMode {
+@Autonomous(name = "Move Forward 2", group = Naming.OPMODE_GROUP_COMP)
+public class MoveForward2 extends LinearOpMode {
     @Override
     public void runOpMode() {
         Robot robot = new Robot(this);
