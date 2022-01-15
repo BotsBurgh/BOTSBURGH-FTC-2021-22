@@ -40,13 +40,11 @@ public class PositionTelemetry extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
         Robot.executorService = Executors.newFixedThreadPool(Constants.THREADS);
-        Robot.gyro0 = new Gyroscope(hardwareMap.get(BNO055IMU.class, "imu"), "gyro0");
-        Robot.gyro0.initGyro();
-        Robot.gyro0.calibrateGyro();
+        Robot.gyro1 = new Gyroscope(hardwareMap.get(BNO055IMU.class, "imu 1"), "gyro1");
+        Robot.gyro1.initGyro();
+        Robot.gyro1.calibrateGyro();
 
-        GyroTracker.gravity.xAccel = Robot.gyro0.getLinearAcceleration().xAccel;
-        GyroTracker.gravity.yAccel = Robot.gyro0.getLinearAcceleration().yAccel;
-        GyroTracker.gravity.zAccel = Robot.gyro0.getLinearAcceleration().zAccel;
+        GyroTracker.reset();
 
         telemetry.addData(">", "Press start");
         telemetry.update();
@@ -65,6 +63,9 @@ public class PositionTelemetry extends LinearOpMode {
             telemetry.addData("ax", GyroTracker.currentAcceleration.xAccel);
             telemetry.addData("ay", GyroTracker.currentAcceleration.yAccel);
             telemetry.addData("az", GyroTracker.currentAcceleration.zAccel);
+            telemetry.addData("avg_ax", GyroTracker.averageAcceleration.xAccel);
+            telemetry.addData("avg_ay", GyroTracker.averageAcceleration.yAccel);
+            telemetry.addData("avg_az", GyroTracker.averageAcceleration.zAccel);
             telemetry.update();
         }
     }
