@@ -84,6 +84,9 @@ public class TeleOpMain extends LinearOpMode {
             if (gamepad1.x) {
                 robot.left.setPower(1);
                 robot.right.setPower(1);
+            } else if (gamepad1.y) {
+                robot.left.setPower(-1);
+                robot.right.setPower(-1);
             } else {
                 robot.left.setPower(0);
                 robot.right.setPower(0);
