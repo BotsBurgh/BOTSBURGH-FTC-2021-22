@@ -171,8 +171,8 @@ public class Robot extends AbstractRobot implements WheeledRobot, ArmRobot {
         this.fr.setDirection(DcMotor.Direction.FORWARD);
         this.bl.setDirection(DcMotor.Direction.REVERSE);
         this.br.setDirection(DcMotor.Direction.FORWARD);
-        this.left.setDirection(DcMotorSimple.Direction.REVERSE);
-        this.right.setDirection(DcMotorSimple.Direction.FORWARD);
+        this.right.setDirection(DcMotorSimple.Direction.REVERSE);
+        this.left.setDirection(DcMotorSimple.Direction.FORWARD);
 
         this.armLeft.setDirection(Servo.Direction.FORWARD);
         this.armRight.setDirection(Servo.Direction.REVERSE);
