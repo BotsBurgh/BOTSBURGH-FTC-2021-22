@@ -115,4 +115,8 @@ public class SmartServo {
         scanServo(position, ms);
         locked = false;
     }
+
+    public void setPwmEnable() {
+        this.servo.setPwmEnable();
+    }
 }

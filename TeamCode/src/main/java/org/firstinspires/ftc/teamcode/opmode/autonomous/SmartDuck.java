@@ -25,6 +25,11 @@ public class SmartDuck extends LinearOpMode {
         telemetry.addData("Status", "Running");
         telemetry.update();
 
+        robot.armLeft.setPwmEnable();
+        robot.armRight.setPwmEnable();
+        robot.clawLeft.setPwmEnable();
+        robot.clawRight.setPwmEnable();
+
         // Move left a little bit
         ElapsedTime runtime = new ElapsedTime();
 
