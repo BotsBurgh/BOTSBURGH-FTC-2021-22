@@ -103,7 +103,7 @@ public class Robot extends AbstractRobot implements WheeledRobot, ArmRobot {
 
     @Override
     public void closeClaw() {
-        this.positionClaw(0.2);
+        this.positionClaw(0.7);
     }
 
     @Override

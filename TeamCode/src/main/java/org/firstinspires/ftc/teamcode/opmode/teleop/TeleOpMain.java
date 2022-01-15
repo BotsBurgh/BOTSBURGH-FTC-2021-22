@@ -62,20 +62,31 @@ public class TeleOpMain extends LinearOpMode {
             }
 
             if (gamepad1.dpad_up) {
-                robot.armLeft.scanServoAsync(robot.armLeft.getPosition() + 0.01, 20);
-                robot.armRight.scanServoAsync(robot.armRight.getPosition() + 0.01, 20);
+                //robot.armLeft.scanServoSync(robot.armLeft.getPosition() + 0.01, 20);
+                //robot.armRight.scanServoSync(robot.armRight.getPosition() + 0.01, 20);
+                robot.armLeft.setPosition(Range.clip(robot.armLeft.getPosition() - 0.01, 0.6, 1));
+                robot.armRight.setPosition(Range.clip(robot.armRight.getPosition() - 0.01, 0.6, 1));
             } else if (gamepad1.dpad_down) {
-                robot.armLeft.scanServoAsync(robot.armLeft.getPosition() - 0.01, 20);
-                robot.armRight.scanServoAsync(robot.armRight.getPosition() - 0.01, 20);
+                //robot.armLeft.scanServoSync(robot.armLeft.getPosition() - 0.01, 20);
+                //robot.armRight.scanServoSync(robot.armRight.getPosition() - 0.01, 20);
+                robot.armLeft.setPosition(Range.clip(robot.armLeft.getPosition() + 0.01, 0.6, 1));
+                robot.armRight.setPosition(Range.clip(robot.armRight.getPosition() + 0.01, 0.6, 1));
             }
 
-            if (gamepad1.a) {
-                // Open
-                robot.openClaw();
-            } else if (gamepad1.b) {
-                // Close
-                robot.closeClaw();
+            if (robot.armLeft.getPosition() < 0.8) {
+                if (gamepad1.a) {
+                    // Open
+                    robot.openClaw();
+                } else if (gamepad1.b) {
+                    // Close
+                    robot.closeClaw();
+                }
             }
+
+            telemetry.addData("Arm Left", robot.armLeft.getPosition());
+            telemetry.addData("Arm Right", robot.armRight.getPosition());
+            telemetry.addData("Claw Left", robot.clawLeft.getPosition());
+            telemetry.addData("Claw Right", robot.clawRight.getPosition());
 
             telemetry.update();
         }
