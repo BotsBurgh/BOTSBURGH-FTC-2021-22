@@ -8,27 +8,10 @@ import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DistanceSensor;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.util.Hardware;
-
-import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
-import org.firstinspires.ftc.robotcore.external.navigation.Position;
-import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 import org.firstinspires.ftc.teamcode.api.GyroTracker;
 import org.firstinspires.ftc.teamcode.api.Robot;
-import org.firstinspires.ftc.teamcode.api.config.Constants;
 import org.firstinspires.ftc.teamcode.api.config.Naming;
-import org.firstinspires.ftc.teamcode.api.hw.Button;
-import org.firstinspires.ftc.teamcode.api.hw.Encoder;
 import org.firstinspires.ftc.teamcode.api.hw.Gyroscope;
-import org.firstinspires.ftc.teamcode.api.hw.Potentiometer;
-import org.firstinspires.ftc.teamcode.api.hw.SmartColorSensor;
-
-import java.util.HashMap;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /*
  * This is a simple program to reach the white line
@@ -39,7 +22,6 @@ public class PositionTelemetry extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
-        Robot.executorService = Executors.newFixedThreadPool(Constants.THREADS);
         Robot.gyro1 = new Gyroscope(hardwareMap.get(BNO055IMU.class, "imu 1"), "gyro1");
         Robot.gyro1.initGyro();
         Robot.gyro1.calibrateGyro();
