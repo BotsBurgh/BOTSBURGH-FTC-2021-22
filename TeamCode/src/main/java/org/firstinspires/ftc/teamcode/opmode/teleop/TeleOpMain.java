@@ -62,11 +62,11 @@ public class TeleOpMain extends LinearOpMode {
             }
 
             if (gamepad1.dpad_up) {
-                robot.armLeft.setPosition(Range.clip(robot.armLeft.getPosition() - 0.002, 0.6, 1));
-                robot.armRight.setPosition(Range.clip(robot.armRight.getPosition() - 0.002, 0.6, 1));
+                robot.armLeft.setPosition(Range.clip(robot.armLeft.getPosition() - 0.001, 0.6, 1));
+                robot.armRight.setPosition(Range.clip(robot.armRight.getPosition() - 0.001, 0.6, 1));
             } else if (gamepad1.dpad_down) {
-                robot.armLeft.setPosition(Range.clip(robot.armLeft.getPosition() + 0.002, 0.6, 1));
-                robot.armRight.setPosition(Range.clip(robot.armRight.getPosition() + 0.002, 0.6, 1));
+                robot.armLeft.setPosition(Range.clip(robot.armLeft.getPosition() + 0.001, 0.6, 1));
+                robot.armRight.setPosition(Range.clip(robot.armRight.getPosition() + 0.001, 0.6, 1));
             }
 
             if (gamepad1.a) {
