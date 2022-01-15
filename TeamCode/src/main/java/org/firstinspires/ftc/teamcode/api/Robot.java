@@ -71,10 +71,12 @@ public class Robot extends AbstractRobot implements WheeledRobot, StepWheeledRob
 
     // Arm
 
-    /*
-    * The actual arm base uses asynchronous code, so that
-    * will not be implemented until this gets tested
-    */
+    @Override
+    public void positionArm(double position) {
+        this.armLeft.setPosition(position);
+        this.armRight.setPosition(position);
+    }
+
 
     @Override
     public void positionClaw(double position) {

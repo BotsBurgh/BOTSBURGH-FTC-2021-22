@@ -22,7 +22,7 @@ public class MoveForward2 extends LinearOpMode {
         telemetry.addData("Status", "Running");
         telemetry.update();
 
-        // Move claw up
+        // Move arm up
         robot.positionArm(0.718);
 
         // Move left a little bit
