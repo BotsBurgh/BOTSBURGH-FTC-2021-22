@@ -22,6 +22,9 @@ public class MoveForward2 extends LinearOpMode {
         telemetry.addData("Status", "Running");
         telemetry.update();
 
+        // Move claw up
+        robot.positionArm(0.718);
+
         // Move left a little bit
         ElapsedTime runtime = new ElapsedTime();
 
@@ -30,9 +33,6 @@ public class MoveForward2 extends LinearOpMode {
         }
 
         sleep(500);
-
-        // Move claw up
-        robot.positionClaw(1);
 
         // Move forward
         runtime = new ElapsedTime();
@@ -44,7 +44,6 @@ public class MoveForward2 extends LinearOpMode {
 
         robot.powerWheels(0);
         robot.powerStepWheels(0);
-        robot.positionClaw(0.6);
 
         telemetry.addData("Status", "Finished");
         telemetry.update();
