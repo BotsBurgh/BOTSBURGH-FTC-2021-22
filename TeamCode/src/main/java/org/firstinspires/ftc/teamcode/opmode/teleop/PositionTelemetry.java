@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.opmode.teleop;
 
-import android.graphics.Color;
-
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
@@ -13,9 +11,6 @@ import org.firstinspires.ftc.teamcode.api.Robot;
 import org.firstinspires.ftc.teamcode.api.config.Naming;
 import org.firstinspires.ftc.teamcode.api.hw.Gyroscope;
 
-/*
- * This is a simple program to reach the white line
- */
 @Config
 @TeleOp(name="Position Telemetry", group=Naming.OPMODE_GROUP_UTIL)
 public class PositionTelemetry extends LinearOpMode {
