@@ -6,8 +6,9 @@ import com.qualcomm.robotcore.hardware.DistanceSensor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.api.Robot;
+import org.firstinspires.ftc.teamcode.api.config.Naming;
 
-@Autonomous(name = "Distance Auto")
+@Autonomous(name = "Distance Auto", group= Naming.OPMODE_GROUP_COMP)
 public class DistanceAuto extends LinearOpMode {
     @Override
     public void runOpMode() {
