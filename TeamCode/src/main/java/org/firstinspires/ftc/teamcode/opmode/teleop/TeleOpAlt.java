@@ -36,6 +36,14 @@ public class TeleOpAlt extends Controller {
         } else if (b) {
             robot.closeClaw();
         }
+
+        if (x) {
+            this.robot.powerStepWheels(1);
+        } else if (y) {
+            this.robot.powerStepWheels(-1);
+        } else {
+            this.robot.powerStepWheels(0);
+        }
     }
 
     @Override
@@ -52,11 +60,11 @@ public class TeleOpAlt extends Controller {
     @Override
     protected void onDpad(boolean dpadUp, boolean dpadDown, boolean dpadLeft, boolean dpadRight) {
         if (dpadUp) {
-            this.robot.armLeft.scanServoAsync(this.robot.armLeft.getPosition() + 0.01, 20);
-            this.robot.armRight.scanServoAsync(this.robot.armRight.getPosition() + 0.01, 20);
+            this.robot.armLeft.setPosition(Range.clip(robot.armLeft.getPosition() - 0.001, 0.6, 1));
+            this.robot.armRight.setPosition(Range.clip(robot.armRight.getPosition() - 0.001, 0.6, 1));
         } else if (dpadDown) {
-            this.robot.armLeft.scanServoAsync(this.robot.armLeft.getPosition() - 0.01, 20);
-            this.robot.armRight.scanServoAsync(this.robot.armRight.getPosition() - 0.01, 20);
+            this.robot.armLeft.setPosition(Range.clip(robot.armLeft.getPosition() + 0.001, 0.6, 1));
+            this.robot.armRight.setPosition(Range.clip(robot.armRight.getPosition() + 0.001, 0.6, 1));
         }
     }
 }
