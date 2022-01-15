@@ -11,6 +11,9 @@ public class Naming {
     public static final String MOTOR_FR                           = "frontRight";
     public static final String MOTOR_BR                           = "backRight";
 
+    public static final String MOTOR_LEFT                         = "left";
+    public static final String MOTOR_RIGHT                        = "right";
+
     public static final String MOTOR_DUCK                         = "duck";
 
     public static final String SERVO_ARM_LEFT                     = "armBaseLeft";
