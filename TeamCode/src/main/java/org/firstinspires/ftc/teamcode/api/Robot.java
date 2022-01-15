@@ -30,6 +30,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.api.bp.AbstractRobot;
 import org.firstinspires.ftc.teamcode.api.bp.ArmRobot;
+import org.firstinspires.ftc.teamcode.api.bp.StepWheeledRobot;
 import org.firstinspires.ftc.teamcode.api.bp.WheeledRobot;
 import org.firstinspires.ftc.teamcode.api.config.Constants;
 import org.firstinspires.ftc.teamcode.api.config.Naming;
@@ -44,7 +45,7 @@ import java.util.concurrent.Executors;
 
 import lombok.Getter;
 
-public class Robot extends AbstractRobot implements WheeledRobot, ArmRobot {
+public class Robot extends AbstractRobot implements WheeledRobot, StepWheeledRobot, ArmRobot {
     public static ExecutorService executorService;
 
     // Discuss if private is better idea
@@ -109,6 +110,12 @@ public class Robot extends AbstractRobot implements WheeledRobot, ArmRobot {
     @Override
     public void powerDuck(double power) {
         this.duck.setPower(power);
+    }
+
+    @Override
+    public void powerStepWheels(double leftPower, double rightPower) {
+        this.left.setPower(leftPower);
+        this.right.setPower(rightPower);
     }
 
     @Override
