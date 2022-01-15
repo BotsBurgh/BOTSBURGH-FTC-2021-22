@@ -20,6 +20,14 @@ public class Gyroscope {
         return gyro.getAcceleration();
     }
 
+    public Acceleration getGravity() {
+        return gyro.getGravity();
+    }
+
+    public Acceleration getLinearAcceleration() {
+        return gyro.getLinearAcceleration();
+    }
+
     public Gyroscope(BNO055IMU gyro, String calibrationFile) {
         this.gyro = gyro;
         this.calibrationFile = calibrationFile;

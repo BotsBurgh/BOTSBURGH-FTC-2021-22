@@ -44,12 +44,10 @@ public class PositionTelemetry extends LinearOpMode {
         Robot.gyro0.initGyro();
         Robot.gyro0.calibrateGyro();
 
-        //Robot.gyro0.startAccelerationIntegration(new Position(), new Velocity(), 50);
-        Acceleration acceleration;
-        Velocity velocity;
-        Position position;
+        GyroTracker.gravity.xAccel = Robot.gyro0.getLinearAcceleration().xAccel;
+        GyroTracker.gravity.yAccel = Robot.gyro0.getLinearAcceleration().yAccel;
+        GyroTracker.gravity.zAccel = Robot.gyro0.getLinearAcceleration().zAccel;
 
-        telemetry.addLine();
         telemetry.addData(">", "Press start");
         telemetry.update();
 
@@ -57,19 +55,16 @@ public class PositionTelemetry extends LinearOpMode {
 
         while (!isStopRequested() && opModeIsActive()) {
             GyroTracker.loop();
-            acceleration = GyroTracker.currentAcceleration;
-            velocity = GyroTracker.currentVelocity;
-            position = GyroTracker.currentPosition;
             telemetry.addData(">", "Press stop");
-            telemetry.addData("x", position.x);
-            telemetry.addData("y", position.y);
-            telemetry.addData("z", position.z);
-            telemetry.addData("vx", velocity.xVeloc);
-            telemetry.addData("vy", velocity.yVeloc);
-            telemetry.addData("vz", velocity.zVeloc);
-            telemetry.addData("ax", acceleration.xAccel);
-            telemetry.addData("ay", acceleration.yAccel);
-            telemetry.addData("az", acceleration.zAccel);
+            telemetry.addData("x", GyroTracker.currentPosition.x);
+            telemetry.addData("y", GyroTracker.currentPosition.y);
+            telemetry.addData("z", GyroTracker.currentPosition.z);
+            telemetry.addData("vx", GyroTracker.currentVelocity.xVeloc);
+            telemetry.addData("vy", GyroTracker.currentVelocity.yVeloc);
+            telemetry.addData("vz", GyroTracker.currentVelocity.zVeloc);
+            telemetry.addData("ax", GyroTracker.currentAcceleration.xAccel);
+            telemetry.addData("ay", GyroTracker.currentAcceleration.yAccel);
+            telemetry.addData("az", GyroTracker.currentAcceleration.zAccel);
             telemetry.update();
         }
     }
