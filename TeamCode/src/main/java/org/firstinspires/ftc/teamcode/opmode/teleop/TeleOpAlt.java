@@ -17,10 +17,14 @@ public class TeleOpAlt extends Controller {
 
     @Override
     protected void onJoystick(float leftStickX, float leftStickY, float rightStickX, float rightStickY) {
-        double flPower = Range.clip((leftStickX - leftStickY + rightStickX), -1.0, 1.0);
-        double blPower = Range.clip((-leftStickX - leftStickY + rightStickX), -1.0, 1.0);
-        double brPower = Range.clip((leftStickX - leftStickY - rightStickX), -1.0, 1.0);
-        double frPower = Range.clip((-leftStickX - leftStickY - rightStickX), -1.0, 1.0);
+        double x1 = Math.pow(leftStickX, 1.8);
+        double y1 = Math.pow(leftStickY, 1.8);
+        double rotation = Math.pow(rightStickX, 1.8);
+
+        double flPower = Range.clip((x1 - y1 + rotation), -1.0, 1.0);
+        double blPower = Range.clip((-x1 - y1 + rotation), -1.0, 1.0);
+        double brPower = Range.clip((x1 - y1 - rotation), -1.0, 1.0);
+        double frPower = Range.clip((-x1 - y1 - rotation), -1.0, 1.0);
 
         this.robot.powerWheels(flPower, frPower, blPower, brPower);
     }
