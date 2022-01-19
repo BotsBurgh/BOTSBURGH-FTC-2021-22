@@ -30,9 +30,9 @@ public class Naming {
     public static final String WEBCAM_0                           = "Webcam 1";
 
     // OpMode group constants
-    public static final String OPMODE_GROUP_COMP = "00-Competition"; // OpModes we would run during a competition
-    public static final String OPMODE_GROUP_UTIL = "50-Utilities"; // OpModes that emit log output for calibration
-    public static final String OPMODE_GROUP_DEMO = "60-Demos"; // Demo OpModes that are useless outside of showing off
-    public static final String OPMODE_GROUP_TEST = "99-Test"; // Testing OpModes that move the robot
+    public static final String OPMODE_GROUP_COMP = "competition"; // OpModes we would run during a competition
+    public static final String OPMODE_GROUP_UTIL = "utils"; // OpModes that emit log output for calibration
+    public static final String OPMODE_GROUP_DEMO = "demos"; // Demo OpModes that are useless outside of showing off
+    public static final String OPMODE_GROUP_TEST = "tests"; // Testing OpModes that move the robot
 }
 
