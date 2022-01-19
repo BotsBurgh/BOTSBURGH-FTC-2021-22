@@ -34,6 +34,6 @@ public class DistanceAuto extends LinearOpMode {
             telemetry.update();
         }
 
-        robot.powerDuck(0);
+        robot.powerWheels(0);
     }
 }
