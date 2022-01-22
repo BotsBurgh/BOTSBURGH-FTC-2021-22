@@ -36,7 +36,7 @@ public class AudioConcept extends LinearOpMode {
             if (!soundPlaying && soundFound && gamepad1.x) {
                 SoundPlayer.getInstance().startPlaying(hardwareMap.appContext, soundID);
 
-                soundPlaying = false;
+                soundPlaying = true;
 
                 telemetry.addData("Playing", "Sound Resource");
                 telemetry.update();
