@@ -27,7 +27,7 @@ public class GetDistance extends LinearOpMode {
         while (opModeIsActive()) {
             double distanceL = sensorL.getDistance(DistanceUnit.CM);
             double distanceR = sensorR.getDistance(DistanceUnit.CM);
-            distance = (distanceL + distanceR) / 2;
+            double distance = (distanceL + distanceR) / 2;
 
             telemetry.addData("Average Distance", distance);
             telemetry.addData("Left Distance", distanceL);
