@@ -53,40 +53,31 @@ public class TeleOpMain extends LinearOpMode {
 
             robot.powerWheels(flPower, frPower, blPower, brPower);
 
-            if (gamepad1.left_bumper) {
+            if (gamepad2.left_bumper) {
                 robot.powerDuck(0.7);
-            } else if (gamepad1.right_bumper) {
+            } else if (gamepad2.right_bumper) {
                 robot.powerDuck(-0.7);
             } else {
                 robot.powerDuck(0);
             }
 
-            if (gamepad1.dpad_up) {
+            if (gamepad2.dpad_up) {
                 robot.armLeft.setPosition(Range.clip(robot.armLeft.getPosition() - 0.001, 0.6, 1));
                 robot.armRight.setPosition(Range.clip(robot.armRight.getPosition() - 0.001, 0.6, 1));
-            } else if (gamepad1.dpad_down) {
+            } else if (gamepad2.dpad_down) {
                 robot.armLeft.setPosition(Range.clip(robot.armLeft.getPosition() + 0.001, 0.6, 1));
                 robot.armRight.setPosition(Range.clip(robot.armRight.getPosition() + 0.001, 0.6, 1));
             }
 
-            if (gamepad1.a) {
+            if (gamepad2.a) {
                 // Open
                 robot.openClaw();
-            } else if (gamepad1.b) {
+            } else if (gamepad2.b) {
                 // Close
                 robot.closeClaw();
             }
 
-            if (gamepad1.x) {
-                robot.left.setPower(1);
-                robot.right.setPower(1);
-            } else if (gamepad1.y) {
-                robot.left.setPower(-1);
-                robot.right.setPower(-1);
-            } else {
-                robot.left.setPower(0);
-                robot.right.setPower(0);
-            }
+
 
             telemetry.addData("Arm Left", robot.armLeft.getPosition());
             telemetry.addData("Arm Right", robot.armRight.getPosition());
