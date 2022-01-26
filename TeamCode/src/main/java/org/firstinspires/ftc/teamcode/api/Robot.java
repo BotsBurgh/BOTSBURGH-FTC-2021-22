@@ -138,8 +138,8 @@ public class Robot extends AbstractRobot implements WheeledRobot, StepWheeledRob
 
         this.duck = new SmartMotor(opMode.hardwareMap.get(DcMotorEx.class, Naming.MOTOR_DUCK));
 
-        this.left = new SmartMotor(opMode.hardwareMap.get(DcMotorEx.class, Naming.MOTOR_LEFT));
-        this.right = new SmartMotor(opMode.hardwareMap.get(DcMotorEx.class, Naming.MOTOR_RIGHT));
+        //this.left = new SmartMotor(opMode.hardwareMap.get(DcMotorEx.class, Naming.MOTOR_LEFT));
+        //this.right = new SmartMotor(opMode.hardwareMap.get(DcMotorEx.class, Naming.MOTOR_RIGHT));
 
         // Servos
         this.armLeft = new SmartServo(opMode.hardwareMap.get(Servo.class, Naming.SERVO_ARM_LEFT));
@@ -154,11 +154,11 @@ public class Robot extends AbstractRobot implements WheeledRobot, StepWheeledRob
         );
         this.webcam0 = opMode.hardwareMap.get(WebcamName.class, Naming.WEBCAM_0);
         */
-        gyro0 = new Gyroscope(opMode.hardwareMap.get(BNO055IMU.class, Naming.GYRO_0), Naming.GYRO_0);
-        gyro1 = new Gyroscope(opMode.hardwareMap.get(BNO055IMU.class, Naming.GYRO_1), Naming.GYRO_1);
+        //gyro0 = new Gyroscope(opMode.hardwareMap.get(BNO055IMU.class, Naming.GYRO_0), Naming.GYRO_0);
+        //gyro1 = new Gyroscope(opMode.hardwareMap.get(BNO055IMU.class, Naming.GYRO_1), Naming.GYRO_1);
 
         // Looped Config
-        SmartMotor[] wheelLoop = new SmartMotor[]{this.fl, this.fr, this.bl, this.br, this.right, this.left};
+        SmartMotor[] wheelLoop = new SmartMotor[]{this.fl, this.fr, this.bl, this.br};
         SmartServo[] servoLoop = new SmartServo[]{this.armLeft, this.armRight, this.clawLeft, this.clawRight};
         Gyroscope[] gyroLoop = new Gyroscope[]{this.gyro0, this.gyro1};
 
@@ -180,8 +180,8 @@ public class Robot extends AbstractRobot implements WheeledRobot, StepWheeledRob
         this.fr.setDirection(DcMotor.Direction.FORWARD);
         this.bl.setDirection(DcMotor.Direction.REVERSE);
         this.br.setDirection(DcMotor.Direction.FORWARD);
-        this.right.setDirection(DcMotorSimple.Direction.REVERSE);
-        this.left.setDirection(DcMotorSimple.Direction.FORWARD);
+        //this.right.setDirection(DcMotorSimple.Direction.REVERSE);
+        //this.left.setDirection(DcMotorSimple.Direction.FORWARD);
 
         this.armLeft.setDirection(Servo.Direction.FORWARD);
         this.armRight.setDirection(Servo.Direction.REVERSE);
