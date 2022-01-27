@@ -5,13 +5,45 @@ import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 public class Controller2Players extends Controller {
-    protected void onJoystick2(float leftStickX, float leftStickY, float rightStickX, float rightStickY) {}
+    protected void onJoystick(
+            float leftStickX1,
+            float leftStickY1,
+            float rightStickX1,
+            float rightStickY1,
+            float leftStickX2,
+            float leftStickY2,
+            float rightStickX2,
+            float rightStickY2
+    ) {}
 
-    protected void onButton2(boolean a, boolean b, boolean x, boolean y) {}
+    protected void onButton(
+            boolean a1,
+            boolean b1,
+            boolean x1,
+            boolean y1,
+            boolean a2,
+            boolean b2,
+            boolean x2,
+            boolean y2
+    ) {}
 
-    protected void onBumper2(boolean leftBumper, boolean rightBumper) {}
+    protected void onBumper(
+            boolean leftBumper1,
+            boolean rightBumper1,
+            boolean leftBumper2,
+            boolean rightBumper2
+    ) {}
 
-    protected void onDpad2(boolean dpadUp, boolean dpadDown, boolean dpadLeft, boolean dpadRight) { }
+    protected void onDpad(
+            boolean dpadUp1,
+            boolean dpadDown1,
+            boolean dpadLeft1,
+            boolean dpadRight1,
+            boolean dpadUp2,
+            boolean dpadDown2,
+            boolean dpadLeft2,
+            boolean dpadRight2
+    ) { }
 
     @Override
     public void runOpMode() {
@@ -28,17 +60,42 @@ public class Controller2Players extends Controller {
         telemetry.addData("Status", "Running");
 
         while (opModeIsActive()) {
-            // Controller 1
-            this.onJoystick(g1.left_stick_x, g1.left_stick_y, g1.right_stick_x, g1.right_stick_y);
-            this.onButton(g1.a, g1.b, g1.x, g1.y);
-            this.onBumper(g1.left_bumper, g1.right_bumper);
-            this.onDpad(g1.dpad_up, g1.dpad_down, g1.dpad_left, g1.dpad_right);
-
-            // Controller 2
-            this.onJoystick2(g2.left_stick_x, g2.left_stick_y, g2.right_stick_x, g2.right_stick_y);
-            this.onButton2(g2.a, g2.b, g2.x, g2.y);
-            this.onBumper2(g2.left_bumper, g2.right_bumper);
-            this.onDpad2(g2.dpad_up, g2.dpad_down, g2.dpad_left, g2.dpad_right);
+            this.onJoystick(
+                    g1.left_stick_x,
+                    g1.left_stick_y,
+                    g1.right_stick_x,
+                    g1.right_stick_y,
+                    g2.left_stick_x,
+                    g2.left_stick_y,
+                    g2.right_stick_x,
+                    g2.right_stick_y
+            );
+            this.onButton(
+                    g1.a,
+                    g1.b,
+                    g1.x,
+                    g1.y,
+                    g2.a,
+                    g2.b,
+                    g2.x,
+                    g2.y
+            );
+            this.onBumper(
+                    g1.left_bumper,
+                    g1.right_bumper,
+                    g2.left_bumper,
+                    g2.right_bumper
+            );
+            this.onDpad(
+                    g1.dpad_up,
+                    g1.dpad_down,
+                    g1.dpad_left,
+                    g1.dpad_right,
+                    g2.dpad_up,
+                    g2.dpad_down,
+                    g2.dpad_left,
+                    g2.dpad_right
+            );
 
             telemetry.update();
         }
