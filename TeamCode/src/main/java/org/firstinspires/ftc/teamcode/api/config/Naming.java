@@ -26,8 +26,8 @@ public class Naming {
 
     public static final String SENSOR_COLOR_PARK = "parkSensor";
 
-    public static final String GYRO_0 = "imu0";
-    public static final String GYRO_1 = "imu1";
+    public static final String GYRO_0 = "imu";
+    public static final String GYRO_1 = "imu 1";
 
     public static final String WEBCAM_0 = "webcam";
 
