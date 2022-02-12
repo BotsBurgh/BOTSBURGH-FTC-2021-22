@@ -13,18 +13,23 @@ public class Naming {
 
     public static final String MOTOR_DUCK = "duck";
 
-    public static final String SERVO_ARM_LEFT = "armBaseLeft";
-    public static final String SERVO_ARM_RIGHT = "armBaseRight";
+    public static final String SERVO_ARM_LEFT = "armLeft";
+    public static final String SERVO_ARM_RIGHT = "armRight";
 
     public static final String SERVO_CLAW_LEFT = "clawLeft";
     public static final String SERVO_CLAW_RIGHT = "clawRight";
 
+    public static final String SENSOR_DISTANCE_FL = "distanceFL";
+    public static final String SENSOR_DISTANCE_FR = "distanceFR";
+    public static final String SENSOR_DISTANCE_BL = "distanceBL";
+    public static final String SENSOR_DISTANCE_BR = "distanceBR";
+
     public static final String COLOR_SENSOR_PARK = "parkSensor";
 
-    public static final String GYRO_0 = "imu";
-    public static final String GYRO_1 = "imu 1";
+    public static final String GYRO_0 = "imu0";
+    public static final String GYRO_1 = "imu1";
 
-    public static final String WEBCAM_0 = "Webcam 1";
+    public static final String WEBCAM_0 = "webcam";
 
     // OpMode group constants
     public static final String OPMODE_GROUP_COMP = "00-Competition"; // OpModes we would run during a competition
