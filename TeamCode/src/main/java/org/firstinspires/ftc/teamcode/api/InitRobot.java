@@ -95,7 +95,7 @@ public class InitRobot {
         // Get color sensors
         SmartColorSensor parkSensor = new SmartColorSensor(
                 (NormalizedColorSensor)l.hardwareMap.get(ColorSensor.class,
-                        Naming.COLOR_SENSOR_PARK)
+                        Naming.SENSOR_COLOR_PARK)
         );
         parkSensor.setRedFudge(Constants.PARK_RED_FUDGE);
         parkSensor.setGreenFudge(Constants.PARK_GREEN_FUDGE);
@@ -103,7 +103,7 @@ public class InitRobot {
 
         // Add color sensors into list
         Sensor.colorSensors = new HashMap<>();
-        Sensor.colorSensors.put(Naming.COLOR_SENSOR_PARK, parkSensor);
+        Sensor.colorSensors.put(Naming.SENSOR_COLOR_PARK, parkSensor);
 
         // Get webcams
         WebcamName webcam1 = l.hardwareMap.get(WebcamName.class, Naming.WEBCAM_0);

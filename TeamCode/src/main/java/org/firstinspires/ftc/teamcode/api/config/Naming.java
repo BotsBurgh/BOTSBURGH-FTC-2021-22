@@ -23,8 +23,8 @@ public class Naming {
     public static final String SENSOR_DISTANCE_FR = "distanceFR";
     public static final String SENSOR_DISTANCE_BL = "distanceBL";
     public static final String SENSOR_DISTANCE_BR = "distanceBR";
-
-    public static final String COLOR_SENSOR_PARK = "parkSensor";
+ 
+    public static final String SENSOR_COLOR_PARK = "parkSensor";
 
     public static final String GYRO_0 = "imu0";
     public static final String GYRO_1 = "imu1";
