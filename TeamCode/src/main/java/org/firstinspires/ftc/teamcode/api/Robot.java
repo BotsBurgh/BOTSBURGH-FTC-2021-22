@@ -150,7 +150,7 @@ public class Robot extends AbstractRobot implements WheeledRobot, StepWheeledRob
         this.distanceBR = opMode.hardwareMap.get(DistanceSensor.class, Naming.SENSOR_DISTANCE_BR);
 
         // Looped Config
-        SmartMotor[] wheelLoop = new SmartMotor[]{this.fl, this.fr, this.bl, this.br, this.right, this.left};
+        SmartMotor[] wheelLoop = new SmartMotor[]{this.fl, this.fr, this.bl, this.br};
         SmartServo[] servoLoop = new SmartServo[]{this.armLeft, this.armRight, this.clawLeft, this.clawRight};
 
         for (SmartMotor motor : wheelLoop) {
