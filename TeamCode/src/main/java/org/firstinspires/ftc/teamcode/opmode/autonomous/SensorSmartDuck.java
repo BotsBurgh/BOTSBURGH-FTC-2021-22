@@ -14,9 +14,10 @@ public class SensorSmartDuck extends LinearOpMode {
     @Override
     public void runOpMode() {
         Robot robot = new Robot(this);
-        DistanceSensor sensorFl = hardwareMap.get(DistanceSensor.class, "distance_left");
-        DistanceSensor sensorFr = hardwareMap.get(DistanceSensor.class, "distance_right");
-        DistanceSensor sensorBr = hardwareMap.get(DistanceSensor.class, "distance_bleft");
+        DistanceSensor sensorFL = robot.getDistanceFL();
+        DistanceSensor sensorFR = robot.getDistanceFR();
+        DistanceSensor sensorBR = robot.getDistanceBR();
+        DistanceSensor sensorBL = robot.getDistanceBL();
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -35,11 +36,11 @@ public class SensorSmartDuck extends LinearOpMode {
 
         // Move backwards into duck wheel
 
-        double distance = sensorBr.getDistance(DistanceUnit.CM);
+        double distance = sensorBR.getDistance(DistanceUnit.CM);
 
         while (distance > 30 && opModeIsActive()) {
             robot.powerWheels(-0.3);
-            distance = sensorBr.getDistance(DistanceUnit.CM);
+            distance = sensorBR.getDistance(DistanceUnit.CM);
         }
 
         robot.powerWheels(0);
