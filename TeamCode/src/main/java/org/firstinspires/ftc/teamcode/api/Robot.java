@@ -186,7 +186,7 @@ public class Robot extends AbstractRobot implements WheeledRobot, StepWheeledRob
 
         // Specific Config
         this.fl.setDirection(DcMotor.Direction.REVERSE);
-        this.fr.setDirection(DcMotor.Direction.FORWARD);
+        this.fr.setDirection(DcMotor.Direction.REVERSE);
         this.bl.setDirection(DcMotor.Direction.REVERSE);
         this.br.setDirection(DcMotor.Direction.FORWARD);
 
