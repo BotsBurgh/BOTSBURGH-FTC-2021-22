@@ -14,10 +14,7 @@ public class SensorSmartDuck extends LinearOpMode {
     @Override
     public void runOpMode() {
         Robot robot = new Robot(this);
-        DistanceSensor sensorFL = robot.getDistanceFL();
-        DistanceSensor sensorFR = robot.getDistanceFR();
-        DistanceSensor sensorBR = robot.getDistanceBR();
-        DistanceSensor sensorBL = robot.getDistanceBL();
+        ElapsedTime runtime;
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -36,11 +33,10 @@ public class SensorSmartDuck extends LinearOpMode {
 
         // Move backwards into duck wheel
 
-        double distance = sensorBR.getDistance(DistanceUnit.CM);
+        runtime = new ElapsedTime();
 
-        while (distance > 30 && opModeIsActive()) {
+        while (robot.getBackDistance() > 20 && runtime.seconds() < 5 && opModeIsActive()) {
             robot.powerWheels(-0.3);
-            distance = sensorBR.getDistance(DistanceUnit.CM);
         }
 
         robot.powerWheels(0);
@@ -49,7 +45,7 @@ public class SensorSmartDuck extends LinearOpMode {
 
         // Spin duck wheel
 
-        ElapsedTime runtime = new ElapsedTime();
+        runtime = new ElapsedTime();
 
         while (runtime.seconds() < 3 && opModeIsActive()) {
             robot.powerDuck(-0.7);
@@ -58,5 +54,38 @@ public class SensorSmartDuck extends LinearOpMode {
         robot.powerDuck(0);
 
         sleep(500);
+
+        // Move left
+
+        runtime = new ElapsedTime();
+
+        while (runtime.seconds() < 0.75 && opModeIsActive()) {
+            robot.powerWheels(-0.5, 0.5, 0.5, -0.5);
+        }
+
+        robot.powerWheels(0);
+
+        sleep(500);
+
+        // Raise Arm
+
+        robot.positionArm(0.718);
+
+        sleep(500);
+
+        // Move forward into warehouse
+
+        runtime = new ElapsedTime();
+
+        while (robot.getFRDistance() > 80 && runtime.seconds() < 5 && opModeIsActive()) {
+            robot.powerWheels(1);
+        }
+
+        robot.powerWheels(0);
+
+        // Finalize
+
+        telemetry.addData("Status", "Finished");
+        telemetry.update();
     }
 }
