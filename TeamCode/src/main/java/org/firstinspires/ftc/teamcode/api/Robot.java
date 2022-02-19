@@ -29,8 +29,10 @@ import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.api.bp.AbstractRobot;
 import org.firstinspires.ftc.teamcode.api.bp.ArmRobot;
+import org.firstinspires.ftc.teamcode.api.bp.DistanceSensorRobot;
 import org.firstinspires.ftc.teamcode.api.bp.StepWheeledRobot;
 import org.firstinspires.ftc.teamcode.api.bp.WheeledRobot;
 import org.firstinspires.ftc.teamcode.api.config.Constants;
@@ -46,13 +48,13 @@ import java.util.concurrent.Executors;
 
 import lombok.Getter;
 
-public class Robot extends AbstractRobot implements WheeledRobot, StepWheeledRobot, ArmRobot {
+public class Robot extends AbstractRobot implements WheeledRobot, StepWheeledRobot, ArmRobot, DistanceSensorRobot {
     public static ExecutorService executorService;
 
     // Discuss if private is better idea
     public SmartMotor bl, br, fl, fr, duck, left, right;
     public SmartServo armLeft, armRight, clawLeft, clawRight;
-    @Getter public DistanceSensor distanceFL, distanceFR, distanceBL, distanceBR;
+    public DistanceSensor distanceFL, distanceFR, distanceBL, distanceBR;
     public SmartColorSensor parkSensor;
     public WebcamName webcam0;
     public static Gyroscope gyro0, gyro1;
@@ -118,6 +120,26 @@ public class Robot extends AbstractRobot implements WheeledRobot, StepWheeledRob
 
     @Deprecated
     public void powerStepWheels(double leftPower, double rightPower) {}
+
+    @Override
+    public double getFLDistance() {
+        return this.distanceFL.getDistance(DistanceUnit.CM);
+    }
+
+    @Override
+    public double getFRDistance() {
+        return this.distanceFR.getDistance(DistanceUnit.CM);
+    }
+
+    @Override
+    public double getBLDistance() {
+        return this.distanceBL.getDistance(DistanceUnit.CM);
+    }
+
+    @Override
+    public double getBRDistance() {
+        return this.distanceBR.getDistance(DistanceUnit.CM);
+    }
 
     @Override
     public void initTeleOp(@NonNull OpMode opMode) {

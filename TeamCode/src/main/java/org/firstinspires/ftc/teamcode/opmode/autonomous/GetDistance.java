@@ -14,11 +14,6 @@ public class GetDistance extends LinearOpMode {
     public void runOpMode() {
         Robot robot = new Robot(this);
 
-        DistanceSensor sensorFL = robot.getDistanceFL();
-        DistanceSensor sensorFR = robot.getDistanceFR();
-        DistanceSensor sensorBL = robot.getDistanceBL();
-        DistanceSensor sensorBR = robot.getDistanceBR();
-
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
@@ -28,21 +23,13 @@ public class GetDistance extends LinearOpMode {
         telemetry.update();
 
         while (opModeIsActive()) {
-            double distanceFL = sensorFL.getDistance(DistanceUnit.CM);
-            double distanceFR = sensorFR.getDistance(DistanceUnit.CM);
-            double distanceF = (distanceFL + distanceFR) / 2;
+            telemetry.addData("Front Average Distance", robot.getFrontDistance());
+            telemetry.addData("Front Left Distance", robot.getFLDistance());
+            telemetry.addData("Front Right Distance", robot.getFRDistance());
 
-            double distanceBL = sensorBL.getDistance(DistanceUnit.CM);
-            double distanceBR = sensorBR.getDistance(DistanceUnit.CM);
-            double distanceB = (distanceBL + distanceBR) / 2;
-
-            telemetry.addData("Front Average Distance", distanceF);
-            telemetry.addData("Front Left Distance", distanceFL);
-            telemetry.addData("Front Right Distance", distanceFR);
-
-            telemetry.addData("Back Average Distance", distanceB);
-            telemetry.addData("Back Left Distance", distanceBL);
-            telemetry.addData("Back Right Distance", distanceBR);
+            telemetry.addData("Back Average Distance", robot.getBackDistance());
+            telemetry.addData("Back Left Distance", robot.getBLDistance());
+            telemetry.addData("Back Right Distance", robot.getBRDistance());
 
             telemetry.update();
         }
