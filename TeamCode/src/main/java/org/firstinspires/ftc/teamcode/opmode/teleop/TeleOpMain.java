@@ -20,6 +20,7 @@ import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.api.Robot;
@@ -32,6 +33,8 @@ public class TeleOpMain extends LinearOpMode {
         Robot robot = new Robot(this);
 
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
+
+        robot.fr.setDirection(DcMotorSimple.Direction.REVERSE);
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -62,11 +65,11 @@ public class TeleOpMain extends LinearOpMode {
             }
 
             if (gamepad2.dpad_up) {
-                robot.armLeft.setPosition(Range.clip(robot.armLeft.getPosition() - 0.001, 0.6, 1));
-                robot.armRight.setPosition(Range.clip(robot.armRight.getPosition() - 0.001, 0.6, 1));
+                robot.armLeft.setPosition(Range.clip(robot.armLeft.getPosition() - 0.005, 0.6, 1));
+                robot.armRight.setPosition(Range.clip(robot.armRight.getPosition() - 0.005, 0.6, 1));
             } else if (gamepad2.dpad_down) {
-                robot.armLeft.setPosition(Range.clip(robot.armLeft.getPosition() + 0.001, 0.6, 1));
-                robot.armRight.setPosition(Range.clip(robot.armRight.getPosition() + 0.001, 0.6, 1));
+                robot.armLeft.setPosition(Range.clip(robot.armLeft.getPosition() + 0.005, 0.6, 1));
+                robot.armRight.setPosition(Range.clip(robot.armRight.getPosition() + 0.05, 0.6, 1));
             }
 
             if (gamepad2.a) {
@@ -75,6 +78,11 @@ public class TeleOpMain extends LinearOpMode {
             } else if (gamepad2.b) {
                 // Close
                 robot.closeClaw();
+
+            }
+            if (gamepad1.a) {
+                //Open
+                robot.openClaw1();
             }
 
 
