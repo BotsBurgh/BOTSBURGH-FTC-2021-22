@@ -59,7 +59,7 @@ public class SensorSmartDuck extends LinearOpMode {
 
         runtime = new ElapsedTime();
 
-        while (runtime.seconds() < 0.75 && opModeIsActive()) {
+        while (runtime.seconds() < 0.85 && opModeIsActive()) {
             robot.powerWheels(-0.5, 0.5, 0.5, -0.5);
         }
 
