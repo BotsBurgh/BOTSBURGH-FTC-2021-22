@@ -16,8 +16,14 @@ public class Naming {
     public static final String SERVO_ARM_LEFT = "armLeft";
     public static final String SERVO_ARM_RIGHT = "armRight";
 
+    public static final String SERVO_ARM_LEFTo = "armLefto";
+    public static final String SERVO_ARM_RIGHTo = "armRighto";
+
     public static final String SERVO_CLAW_LEFT = "clawLeft";
     public static final String SERVO_CLAW_RIGHT = "clawRight";
+
+    public static final String SERVO_CLAW_LEFTo = "clawLefto";
+    public static final String SERVO_CLAW_RIGHTo = "clawRighto";
 
     public static final String SENSOR_DISTANCE_FL = "distanceFL";
     public static final String SENSOR_DISTANCE_FR = "distanceFR";
