@@ -116,7 +116,7 @@ public class Robot extends AbstractRobot implements WheeledRobot, StepWheeledRob
 
     @Override
     public void openClaw() {
-        this.positionClaw(0.1 );
+        this.positionClaw(0.1);
     }
 
     @Override
@@ -125,11 +125,11 @@ public class Robot extends AbstractRobot implements WheeledRobot, StepWheeledRob
     }
 
     public void openClawO() {
-        this.positionClawO(0.1 );
+        // this.positionClawO(1);
     }
 
     public void closeClawO() {
-        this.positionClawO(0.2);
+        // this.positionClawO(0);
     }
 
     @Override
@@ -209,8 +209,6 @@ public class Robot extends AbstractRobot implements WheeledRobot, StepWheeledRob
         this.fr.setDirection(DcMotor.Direction.FORWARD);
         this.bl.setDirection(DcMotor.Direction.REVERSE);
         this.br.setDirection(DcMotor.Direction.FORWARD);
-        //this.right.setDirection(DcMotorSimple.Direction.REVERSE);
-        //this.left.setDirection(DcMotorSimple.Direction.FORWARD);
 
         this.armLeft.setDirection(Servo.Direction.FORWARD);
         this.armRight.setDirection(Servo.Direction.REVERSE);

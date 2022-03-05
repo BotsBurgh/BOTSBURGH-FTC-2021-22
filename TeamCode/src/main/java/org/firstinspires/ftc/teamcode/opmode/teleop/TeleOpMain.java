@@ -69,11 +69,11 @@ public class TeleOpMain extends LinearOpMode {
             }
 
             if (gamepad2.dpad_up) {
-                robot.armLeft.setPosition(Range.clip(robot.armLeft.getPosition() - 0.01, 0.6, 1));
-                robot.armRight.setPosition(Range.clip(robot.armRight.getPosition() - 0.01, 0.6, 1));
+                robot.armLeft.setPosition(Range.clip(robot.armLeft.getPosition() - 0.01, 0.5, 1));
+                robot.armRight.setPosition(Range.clip(robot.armRight.getPosition() - 0.01, 0.5, 1));
             } else if (gamepad2.dpad_down) {
-                robot.armLeft.setPosition(Range.clip(robot.armLeft.getPosition() + 0.01, 0.6, 1));
-                robot.armRight.setPosition(Range.clip(robot.armRight.getPosition() + 0.01, 0.6, 1));
+                robot.armLeft.setPosition(Range.clip(robot.armLeft.getPosition() + 0.01, 0.5, 1));
+                robot.armRight.setPosition(Range.clip(robot.armRight.getPosition() + 0.01, 0.5, 1));
             }
 
             if (gamepad2.a) {
@@ -94,8 +94,6 @@ public class TeleOpMain extends LinearOpMode {
 
 
             if (gamepad1.a) {
-                telemetry.addData("Status", "Claw 1 Open TestA");
-                telemetry.update();
                 robot.openClawO();
             } else if (gamepad1.b)    {
                 robot.closeClawO();
