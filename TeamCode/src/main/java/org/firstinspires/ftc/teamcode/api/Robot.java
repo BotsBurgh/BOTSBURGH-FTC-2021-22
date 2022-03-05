@@ -125,11 +125,11 @@ public class Robot extends AbstractRobot implements WheeledRobot, StepWheeledRob
     }
 
     public void openClawO() {
-        // this.positionClawO(1);
+        this.positionClawO(0.1);
     }
 
     public void closeClawO() {
-        // this.positionClawO(0);
+        this.positionClawO(0.2);
     }
 
     @Override
@@ -160,9 +160,6 @@ public class Robot extends AbstractRobot implements WheeledRobot, StepWheeledRob
         this.fr = new SmartMotor(opMode.hardwareMap.get(DcMotorEx.class, Naming.MOTOR_FR));
 
         this.duck = new SmartMotor(opMode.hardwareMap.get(DcMotorEx.class, Naming.MOTOR_DUCK));
-
-        //this.left = new SmartMotor(opMode.hardwareMap.get(DcMotorEx.class, Naming.MOTOR_LEFT));
-        //this.right = new SmartMotor(opMode.hardwareMap.get(DcMotorEx.class, Naming.MOTOR_RIGHT));
 
         // Servos
         this.armLeft = new SmartServo(opMode.hardwareMap.get(Servo.class, Naming.SERVO_ARM_LEFT));
