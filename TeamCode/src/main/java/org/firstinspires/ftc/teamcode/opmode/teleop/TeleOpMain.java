@@ -46,6 +46,8 @@ public class TeleOpMain extends LinearOpMode {
         telemetry.addData("Status", "Running");
         telemetry.update();
 
+        robot.clawLefto.setPosition(0.1);
+        robot.clawRighto.setPosition(0.1);
         while (opModeIsActive()) {
             double x1 = gamepad1.left_stick_x;
             double y1 = gamepad1.left_stick_y;
@@ -92,7 +94,7 @@ public class TeleOpMain extends LinearOpMode {
 
 
             if (gamepad1.a) {
-                telemetry.addData("Status", "Claw 1 Open Test");
+                telemetry.addData("Status", "Claw 1 Open TestA");
                 telemetry.update();
                 robot.openClawO();
             } else if (gamepad1.b)    {
