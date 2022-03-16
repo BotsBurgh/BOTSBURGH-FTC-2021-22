@@ -24,12 +24,15 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.api.bp.AbstractRobot;
 import org.firstinspires.ftc.teamcode.api.bp.ArmRobot;
+import org.firstinspires.ftc.teamcode.api.bp.DistanceSensorRobot;
 import org.firstinspires.ftc.teamcode.api.bp.StepWheeledRobot;
 import org.firstinspires.ftc.teamcode.api.bp.WheeledRobot;
 import org.firstinspires.ftc.teamcode.api.config.Constants;
@@ -45,12 +48,13 @@ import java.util.concurrent.Executors;
 
 import lombok.Getter;
 
-public class Robot extends AbstractRobot implements WheeledRobot, StepWheeledRobot, ArmRobot {
+public class Robot extends AbstractRobot implements WheeledRobot, StepWheeledRobot, ArmRobot, DistanceSensorRobot {
     public static ExecutorService executorService;
 
     // Discuss if private is better idea
     public SmartMotor bl, br, fl, fr, duck, left, right;
     public SmartServo armLeft, armRight, clawLeft, clawRight, clawLefto, clawRighto, armLefto, armRighto;
+    public DistanceSensor distanceFL, distanceFR, distanceBL, distanceBR;
     public SmartColorSensor parkSensor;
     public WebcamName webcam0;
     public static Gyroscope gyro0, gyro1;
@@ -137,10 +141,27 @@ public class Robot extends AbstractRobot implements WheeledRobot, StepWheeledRob
         this.duck.setPower(power);
     }
 
+    @Deprecated
+    public void powerStepWheels(double leftPower, double rightPower) {}
+
     @Override
-    public void powerStepWheels(double leftPower, double rightPower) {
-        this.left.setPower(leftPower);
-        this.right.setPower(rightPower);
+    public double getFLDistance() {
+        return this.distanceFL.getDistance(DistanceUnit.CM);
+    }
+
+    @Override
+    public double getFRDistance() {
+        return this.distanceFR.getDistance(DistanceUnit.CM);
+    }
+
+    @Override
+    public double getBLDistance() {
+        return this.distanceBL.getDistance(DistanceUnit.CM);
+    }
+
+    @Override
+    public double getBRDistance() {
+        return this.distanceBR.getDistance(DistanceUnit.CM);
     }
 
     @Override
@@ -172,21 +193,15 @@ public class Robot extends AbstractRobot implements WheeledRobot, StepWheeledRob
         this.clawLefto = new SmartServo(opMode.hardwareMap.get(Servo.class, Naming.SERVO_CLAW_LEFTo));
         this.clawRighto = new SmartServo(opMode.hardwareMap.get(Servo.class, Naming.SERVO_CLAW_RIGHTo));
 
-
-        /*
         // Sensors
-        this.parkSensor = new SmartColorSensor(
-                (NormalizedColorSensor) opMode.hardwareMap.get(ColorSensor.class, Naming.COLOR_SENSOR_PARK)
-        );
-        this.webcam0 = opMode.hardwareMap.get(WebcamName.class, Naming.WEBCAM_0);
-        */
-        //gyro0 = new Gyroscope(opMode.hardwareMap.get(BNO055IMU.class, Naming.GYRO_0), Naming.GYRO_0);
-        //gyro1 = new Gyroscope(opMode.hardwareMap.get(BNO055IMU.class, Naming.GYRO_1), Naming.GYRO_1);
+        this.distanceFL = opMode.hardwareMap.get(DistanceSensor.class, Naming.SENSOR_DISTANCE_FL);
+        this.distanceFR = opMode.hardwareMap.get(DistanceSensor.class, Naming.SENSOR_DISTANCE_FR);
+        this.distanceBL = opMode.hardwareMap.get(DistanceSensor.class, Naming.SENSOR_DISTANCE_BL);
+        this.distanceBR = opMode.hardwareMap.get(DistanceSensor.class, Naming.SENSOR_DISTANCE_BR);
 
         // Looped Config
         SmartMotor[] wheelLoop = new SmartMotor[]{this.fl, this.fr, this.bl, this.br};
-        SmartServo[] servoLoop = new SmartServo[]{this.armLeft, this.armRight, this.clawLeft, this.clawRight, this.armLefto, this.armRighto, this.clawLefto, this.clawRighto};
-        Gyroscope[] gyroLoop = new Gyroscope[]{this.gyro0, this.gyro1};
+        SmartServo[] servoLoop = new SmartServo[]{this.armLeft, this.armRight, this.clawLeft, this.clawRight};
 
         for (SmartMotor motor : wheelLoop) {
             motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -197,13 +212,9 @@ public class Robot extends AbstractRobot implements WheeledRobot, StepWheeledRob
             servo.setPosition(servo.getPosition());
         }
 
-        /*for (Gyroscope gyro : gyroLoop) {
-            gyro.initGyro();
-        }*/
-
         // Specific Config
         this.fl.setDirection(DcMotor.Direction.REVERSE);
-        this.fr.setDirection(DcMotor.Direction.FORWARD);
+        this.fr.setDirection(DcMotor.Direction.REVERSE);
         this.bl.setDirection(DcMotor.Direction.REVERSE);
         this.br.setDirection(DcMotor.Direction.FORWARD);
 
@@ -221,9 +232,5 @@ public class Robot extends AbstractRobot implements WheeledRobot, StepWheeledRob
         this.br.setPowerModifier(Constants.MOTOR_BR_POWER_MOD);
         this.fl.setPowerModifier(Constants.MOTOR_FL_POWER_MOD);
         this.fr.setPowerModifier(Constants.MOTOR_FR_POWER_MOD);
-
-        /*this.parkSensor.setRedFudge(Constants.PARK_RED_FUDGE);
-        this.parkSensor.setGreenFudge(Constants.PARK_GREEN_FUDGE);
-        this.parkSensor.setBlueFudge(Constants.PARK_BLUE_FUDGE);*/
     }
 }

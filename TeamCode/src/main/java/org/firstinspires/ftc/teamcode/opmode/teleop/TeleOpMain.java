@@ -99,9 +99,6 @@ public class TeleOpMain extends LinearOpMode {
                 robot.closeClawO();
             }
 
-
-
-
             telemetry.addData("Arm Left", robot.armLeft.getPosition());
             telemetry.addData("Arm Right", robot.armRight.getPosition());
             telemetry.addData("Claw Left", robot.clawLeft.getPosition());
