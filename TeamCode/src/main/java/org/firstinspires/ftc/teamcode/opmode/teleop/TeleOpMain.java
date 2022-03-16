@@ -20,6 +20,8 @@ import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.api.Robot;
@@ -33,6 +35,9 @@ public class TeleOpMain extends LinearOpMode {
 
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 
+        robot.fr.setDirection(DcMotorSimple.Direction.REVERSE);
+
+
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
@@ -41,6 +46,8 @@ public class TeleOpMain extends LinearOpMode {
         telemetry.addData("Status", "Running");
         telemetry.update();
 
+        robot.clawLefto.setPosition(0.1);
+        robot.clawRighto.setPosition(0.1);
         while (opModeIsActive()) {
             double x1 = gamepad1.left_stick_x;
             double y1 = gamepad1.left_stick_y;
@@ -53,28 +60,43 @@ public class TeleOpMain extends LinearOpMode {
 
             robot.powerWheels(flPower, frPower, blPower, brPower);
 
-            if (gamepad1.left_bumper) {
+            if (gamepad2.left_bumper) {
                 robot.powerDuck(0.7);
-            } else if (gamepad1.right_bumper) {
+            } else if (gamepad2.right_bumper) {
                 robot.powerDuck(-0.7);
             } else {
                 robot.powerDuck(0);
             }
 
-            if (gamepad1.dpad_up) {
-                robot.armLeft.setPosition(Range.clip(robot.armLeft.getPosition() - 0.001, 0.6, 1));
-                robot.armRight.setPosition(Range.clip(robot.armRight.getPosition() - 0.001, 0.6, 1));
-            } else if (gamepad1.dpad_down) {
-                robot.armLeft.setPosition(Range.clip(robot.armLeft.getPosition() + 0.001, 0.6, 1));
-                robot.armRight.setPosition(Range.clip(robot.armRight.getPosition() + 0.001, 0.6, 1));
+            if (gamepad2.dpad_up) {
+                robot.armLeft.setPosition(Range.clip(robot.armLeft.getPosition() - 0.01, 0.5, 1));
+                robot.armRight.setPosition(Range.clip(robot.armRight.getPosition() - 0.01, 0.5, 1));
+            } else if (gamepad2.dpad_down) {
+                robot.armLeft.setPosition(Range.clip(robot.armLeft.getPosition() + 0.01, 0.5, 1));
+                robot.armRight.setPosition(Range.clip(robot.armRight.getPosition() + 0.01, 0.5, 1));
             }
 
-            if (gamepad1.a) {
+            if (gamepad2.a) {
                 // Open
                 robot.openClaw();
-            } else if (gamepad1.b) {
+            } else if (gamepad2.b) {
                 // Close
                 robot.closeClaw();
+            }
+
+            if (gamepad1.dpad_up) {
+                robot.armLefto.setPosition(Range.clip(robot.armLefto.getPosition() - 0.01, 0.6, 1));
+                robot.armRighto.setPosition(Range.clip(robot.armRighto.getPosition() - 0.01, 0.6, 1));
+            } else if (gamepad1.dpad_down) {
+                robot.armLefto.setPosition(Range.clip(robot.armLefto.getPosition() + 0.01, 0.6, 1));
+                robot.armRighto.setPosition(Range.clip(robot.armRighto.getPosition() + 0.01, 0.6, 1));
+            }
+
+
+            if (gamepad1.a) {
+                robot.openClawO();
+            } else if (gamepad1.b)    {
+                robot.closeClawO();
             }
 
             telemetry.addData("Arm Left", robot.armLeft.getPosition());

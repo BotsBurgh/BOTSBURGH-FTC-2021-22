@@ -53,7 +53,7 @@ public class Robot extends AbstractRobot implements WheeledRobot, StepWheeledRob
 
     // Discuss if private is better idea
     public SmartMotor bl, br, fl, fr, duck, left, right;
-    public SmartServo armLeft, armRight, clawLeft, clawRight;
+    public SmartServo armLeft, armRight, clawLeft, clawRight, clawLefto, clawRighto, armLefto, armRighto;
     public DistanceSensor distanceFL, distanceFR, distanceBL, distanceBR;
     public SmartColorSensor parkSensor;
     public WebcamName webcam0;
@@ -88,6 +88,16 @@ public class Robot extends AbstractRobot implements WheeledRobot, StepWheeledRob
         this.clawRight.setPosition(position);
     }
 
+    public void positionArmO(double position) {
+        this.armLefto.setPosition(position);
+        this.armRighto.setPosition(position);
+    }
+
+    public void positionClawO(double position) {
+        this.clawLefto.setPosition(position);
+        this.clawRighto.setPosition(position);
+    }
+
     @Override
     public void adjustClaw(double amount) {
         // Version 1
@@ -103,14 +113,27 @@ public class Robot extends AbstractRobot implements WheeledRobot, StepWheeledRob
         */
     }
 
+    public void adjustClawO(double amount) {
+        this.clawLefto.setPosition(this.clawLefto.getPosition() + amount);
+        this.clawRighto.setPosition(this.clawRighto.getPosition() + amount);
+    }
+
     @Override
     public void openClaw() {
-        this.positionClaw(0.9);
+        this.positionClaw(0.1);
     }
 
     @Override
     public void closeClaw() {
-        this.positionClaw(0.82);
+        this.positionClaw(0.2);
+    }
+
+    public void openClawO() {
+        this.positionClawO(0.1);
+    }
+
+    public void closeClawO() {
+        this.positionClawO(0.2);
     }
 
     @Override
@@ -165,6 +188,11 @@ public class Robot extends AbstractRobot implements WheeledRobot, StepWheeledRob
         this.clawLeft = new SmartServo(opMode.hardwareMap.get(Servo.class, Naming.SERVO_CLAW_LEFT));
         this.clawRight = new SmartServo(opMode.hardwareMap.get(Servo.class, Naming.SERVO_CLAW_RIGHT));
 
+        this.armLefto = new SmartServo(opMode.hardwareMap.get(Servo.class, Naming.SERVO_ARM_LEFTo));
+        this.armRighto = new SmartServo(opMode.hardwareMap.get(Servo.class, Naming.SERVO_ARM_RIGHTo));
+        this.clawLefto = new SmartServo(opMode.hardwareMap.get(Servo.class, Naming.SERVO_CLAW_LEFTo));
+        this.clawRighto = new SmartServo(opMode.hardwareMap.get(Servo.class, Naming.SERVO_CLAW_RIGHTo));
+
         // Sensors
         this.distanceFL = opMode.hardwareMap.get(DistanceSensor.class, Naming.SENSOR_DISTANCE_FL);
         this.distanceFR = opMode.hardwareMap.get(DistanceSensor.class, Naming.SENSOR_DISTANCE_FR);
@@ -194,6 +222,11 @@ public class Robot extends AbstractRobot implements WheeledRobot, StepWheeledRob
         this.armRight.setDirection(Servo.Direction.REVERSE);
         this.clawLeft.setDirection(Servo.Direction.FORWARD);
         this.clawRight.setDirection(Servo.Direction.REVERSE);
+
+        this.armLefto.setDirection(Servo.Direction.FORWARD);
+        this.armRighto.setDirection(Servo.Direction.REVERSE);
+        this.clawLefto.setDirection(Servo.Direction.FORWARD);
+        this.clawRighto.setDirection(Servo.Direction.REVERSE);
 
         this.bl.setPowerModifier(Constants.MOTOR_BL_POWER_MOD);
         this.br.setPowerModifier(Constants.MOTOR_BR_POWER_MOD);
