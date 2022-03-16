@@ -9,8 +9,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.api.Robot;
 import org.firstinspires.ftc.teamcode.api.config.Naming;
 
-@Autonomous(name = "Smart Duck", group = Naming.OPMODE_GROUP_COMP)
-public class SmartDuck extends LinearOpMode {
+@Autonomous(name = "Timed Smart Duck", group = Naming.OPMODE_GROUP_COMP)
+public class TimedSmartDuck extends LinearOpMode {
     @Override
     public void runOpMode() {
         Robot robot = new Robot(this);
