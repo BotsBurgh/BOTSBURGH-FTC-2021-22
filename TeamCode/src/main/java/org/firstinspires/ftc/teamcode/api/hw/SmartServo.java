@@ -24,7 +24,7 @@ import android.os.SystemClock;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.ServoImplEx;
 
-import org.firstinspires.ftc.teamcode.api.OldRobot;
+import org.firstinspires.ftc.teamcode.api.Robot;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -33,7 +33,7 @@ public class SmartServo {
     private final ServoImplEx servo;
     @Getter private double position;
     @Getter @Setter private double step = 0.001;
-    @Getter private boolean lock = false;
+    @Getter private boolean locked = false;
 
     // Motor configuration
     @Getter @Setter double maxPos = 1;
@@ -99,25 +99,24 @@ public class SmartServo {
     }
 
     public void scanServoAsync(double position, int ms) {
-        if (lock) {
+        if (locked) {
             return;
         }
-        lock = true;
-        OldRobot.executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                scanServo(position, ms);
-            }
-        });
-        lock = false;
+        locked = true;
+        Robot.executorService.execute(() -> scanServo(position, ms));
+        locked = false;
     }
 
     public void scanServoSync(double position, int ms) {
-        if (lock) {
+        if (locked) {
             return;
         }
-        lock = true;
+        locked = true;
         scanServo(position, ms);
-        lock = false;
+        locked = false;
+    }
+
+    public void setPwmEnable() {
+        this.servo.setPwmEnable();
     }
 }

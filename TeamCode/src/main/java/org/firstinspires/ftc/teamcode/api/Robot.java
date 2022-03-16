@@ -23,12 +23,14 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.api.bp.AbstractRobot;
 import org.firstinspires.ftc.teamcode.api.bp.ArmRobot;
+import org.firstinspires.ftc.teamcode.api.bp.StepWheeledRobot;
 import org.firstinspires.ftc.teamcode.api.bp.WheeledRobot;
 import org.firstinspires.ftc.teamcode.api.config.Constants;
 import org.firstinspires.ftc.teamcode.api.config.Naming;
@@ -37,13 +39,21 @@ import org.firstinspires.ftc.teamcode.api.hw.SmartColorSensor;
 import org.firstinspires.ftc.teamcode.api.hw.SmartMotor;
 import org.firstinspires.ftc.teamcode.api.hw.SmartServo;
 
-public class Robot extends AbstractRobot implements WheeledRobot, ArmRobot {
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import lombok.Getter;
+
+public class Robot extends AbstractRobot implements WheeledRobot, StepWheeledRobot, ArmRobot {
+    public static ExecutorService executorService;
+
     // Discuss if private is better idea
-    public SmartMotor bl, br, fl, fr, duck;
-    public SmartServo armLeft, armRight, clawLeft, clawRight;
+    public SmartMotor bl, br, fl, fr, duck, left, right;
+    public SmartServo armLeft, armRight, clawLeft, clawRight, clawLefto, clawRighto, armLefto, armRighto;
     public SmartColorSensor parkSensor;
     public WebcamName webcam0;
-    public Gyroscope gyro0, gyro1;
+    public static Gyroscope gyro0, gyro1;
     private OpMode opMode;
 
     public Robot(OpMode opMode) {
@@ -61,15 +71,27 @@ public class Robot extends AbstractRobot implements WheeledRobot, ArmRobot {
 
     // Arm
 
-    /*
-    * The actual arm base uses asynchronous code, so that
-    * will not be implemented until this gets tested
-    */
+    @Override
+    public void positionArm(double position) {
+        this.armLeft.setPosition(position);
+        this.armRight.setPosition(position);
+    }
+
 
     @Override
     public void positionClaw(double position) {
         this.clawLeft.setPosition(position);
         this.clawRight.setPosition(position);
+    }
+
+    public void positionArmO(double position) {
+        this.armLefto.setPosition(position);
+        this.armRighto.setPosition(position);
+    }
+
+    public void positionClawO(double position) {
+        this.clawLefto.setPosition(position);
+        this.clawRighto.setPosition(position);
     }
 
     @Override
@@ -87,14 +109,27 @@ public class Robot extends AbstractRobot implements WheeledRobot, ArmRobot {
         */
     }
 
+    public void adjustClawO(double amount) {
+        this.clawLefto.setPosition(this.clawLefto.getPosition() + amount);
+        this.clawRighto.setPosition(this.clawRighto.getPosition() + amount);
+    }
+
     @Override
     public void openClaw() {
-        this.positionClaw(0.9);
+        this.positionClaw(0.1);
     }
 
     @Override
     public void closeClaw() {
         this.positionClaw(0.2);
+    }
+
+    public void openClawO() {
+        this.positionClawO(0.1);
+    }
+
+    public void closeClawO() {
+        this.positionClawO(0.2);
     }
 
     @Override
@@ -103,7 +138,16 @@ public class Robot extends AbstractRobot implements WheeledRobot, ArmRobot {
     }
 
     @Override
+    public void powerStepWheels(double leftPower, double rightPower) {
+        this.left.setPower(leftPower);
+        this.right.setPower(rightPower);
+    }
+
+    @Override
     public void initTeleOp(@NonNull OpMode opMode) {
+        // Threading or something
+        ExecutorService executorService = Executors.newFixedThreadPool(Constants.THREADS);
+
         // For future reference
         this.opMode = opMode;
 
@@ -123,19 +167,25 @@ public class Robot extends AbstractRobot implements WheeledRobot, ArmRobot {
         this.clawLeft = new SmartServo(opMode.hardwareMap.get(Servo.class, Naming.SERVO_CLAW_LEFT));
         this.clawRight = new SmartServo(opMode.hardwareMap.get(Servo.class, Naming.SERVO_CLAW_RIGHT));
 
+        this.armLefto = new SmartServo(opMode.hardwareMap.get(Servo.class, Naming.SERVO_ARM_LEFTo));
+        this.armRighto = new SmartServo(opMode.hardwareMap.get(Servo.class, Naming.SERVO_ARM_RIGHTo));
+        this.clawLefto = new SmartServo(opMode.hardwareMap.get(Servo.class, Naming.SERVO_CLAW_LEFTo));
+        this.clawRighto = new SmartServo(opMode.hardwareMap.get(Servo.class, Naming.SERVO_CLAW_RIGHTo));
+
+
         /*
         // Sensors
         this.parkSensor = new SmartColorSensor(
                 (NormalizedColorSensor) opMode.hardwareMap.get(ColorSensor.class, Naming.COLOR_SENSOR_PARK)
         );
         this.webcam0 = opMode.hardwareMap.get(WebcamName.class, Naming.WEBCAM_0);
-        this.gyro0 = new Gyroscope(opMode.hardwareMap.get(BNO055IMU.class, Naming.GYRO_0), Naming.GYRO_0);
-        this.gyro1 = new Gyroscope(opMode.hardwareMap.get(BNO055IMU.class, Naming.GYRO_1), Naming.GYRO_1);
         */
+        //gyro0 = new Gyroscope(opMode.hardwareMap.get(BNO055IMU.class, Naming.GYRO_0), Naming.GYRO_0);
+        //gyro1 = new Gyroscope(opMode.hardwareMap.get(BNO055IMU.class, Naming.GYRO_1), Naming.GYRO_1);
 
         // Looped Config
         SmartMotor[] wheelLoop = new SmartMotor[]{this.fl, this.fr, this.bl, this.br};
-        SmartServo[] servoLoop = new SmartServo[]{this.armLeft, this.armRight, this.clawLeft, this.clawRight};
+        SmartServo[] servoLoop = new SmartServo[]{this.armLeft, this.armRight, this.clawLeft, this.clawRight, this.armLefto, this.armRighto, this.clawLefto, this.clawRighto};
         Gyroscope[] gyroLoop = new Gyroscope[]{this.gyro0, this.gyro1};
 
         for (SmartMotor motor : wheelLoop) {
@@ -152,15 +202,20 @@ public class Robot extends AbstractRobot implements WheeledRobot, ArmRobot {
         }*/
 
         // Specific Config
-        this.bl.setDirection(DcMotor.Direction.FORWARD);
-        this.br.setDirection(DcMotor.Direction.FORWARD);
         this.fl.setDirection(DcMotor.Direction.REVERSE);
-        this.fr.setDirection(DcMotor.Direction.REVERSE);
+        this.fr.setDirection(DcMotor.Direction.FORWARD);
+        this.bl.setDirection(DcMotor.Direction.REVERSE);
+        this.br.setDirection(DcMotor.Direction.FORWARD);
 
         this.armLeft.setDirection(Servo.Direction.FORWARD);
         this.armRight.setDirection(Servo.Direction.REVERSE);
         this.clawLeft.setDirection(Servo.Direction.FORWARD);
         this.clawRight.setDirection(Servo.Direction.REVERSE);
+
+        this.armLefto.setDirection(Servo.Direction.FORWARD);
+        this.armRighto.setDirection(Servo.Direction.REVERSE);
+        this.clawLefto.setDirection(Servo.Direction.FORWARD);
+        this.clawRighto.setDirection(Servo.Direction.REVERSE);
 
         this.bl.setPowerModifier(Constants.MOTOR_BL_POWER_MOD);
         this.br.setPowerModifier(Constants.MOTOR_BR_POWER_MOD);
