@@ -42,7 +42,7 @@ public class TeleOpMain extends LinearOpMode {
         telemetry.update();
 
         robot.positionClaw(0.1);
-        robot.positionClawO(0.1);
+        robot.positionClaw2(0.1);
 
         while (opModeIsActive()) {
             // Wheel movement
@@ -68,9 +68,9 @@ public class TeleOpMain extends LinearOpMode {
 
             // Arm movement
             if (gamepad1.dpad_up) {
-                robot.positionArmO(Range.clip(robot.getArmLeft2().getPosition() - 0.01, 0.6, 1));
+                robot.positionArm2(Range.clip(robot.getArmLeft2().getPosition() - 0.01, 0.6, 1));
             } else if (gamepad1.dpad_down) {
-                robot.positionArmO(Range.clip(robot.getArmLeft2().getPosition() + 0.01, 0.6, 1));
+                robot.positionArm2(Range.clip(robot.getArmLeft2().getPosition() + 0.01, 0.6, 1));
             }
 
             if (gamepad2.dpad_up) {
@@ -81,9 +81,9 @@ public class TeleOpMain extends LinearOpMode {
 
             // Claw opening / closing
             if (gamepad1.a) {
-                robot.openClawO();
+                robot.openClaw2();
             } else if (gamepad1.b) {
-                robot.closeClawO();
+                robot.closeClaw2();
             }
 
             if (gamepad2.a) {

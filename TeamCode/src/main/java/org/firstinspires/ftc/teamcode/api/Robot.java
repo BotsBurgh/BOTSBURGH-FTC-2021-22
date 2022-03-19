@@ -79,12 +79,12 @@ public class Robot extends AbstractRobot implements WheeledRobot, StepWheeledRob
         this.clawRight.setPosition(position);
     }
 
-    public void positionArmO(double position) {
+    public void positionArm2(double position) {
         this.armLeft2.setPosition(position);
         this.armRight2.setPosition(position);
     }
 
-    public void positionClawO(double position) {
+    public void positionClaw2(double position) {
         this.clawLeft2.setPosition(position);
         this.clawRight2.setPosition(position);
     }
@@ -95,7 +95,7 @@ public class Robot extends AbstractRobot implements WheeledRobot, StepWheeledRob
         this.clawRight.setPosition(this.clawRight.getPosition() + amount);
     }
 
-    public void adjustClawO(double amount) {
+    public void adjustClaw2(double amount) {
         this.clawLeft2.setPosition(this.clawLeft2.getPosition() + amount);
         this.clawRight2.setPosition(this.clawRight2.getPosition() + amount);
     }
@@ -110,12 +110,12 @@ public class Robot extends AbstractRobot implements WheeledRobot, StepWheeledRob
         this.positionClaw(0.2);
     }
 
-    public void openClawO() {
-        this.positionClawO(0.1);
+    public void openClaw2() {
+        this.positionClaw2(0.1);
     }
 
-    public void closeClawO() {
-        this.positionClawO(0.2);
+    public void closeClaw2() {
+        this.positionClaw2(0.2);
     }
 
     @Override
