@@ -131,7 +131,7 @@ public class ConceptVuforiaFieldNavigationWebcam extends LinearOpMode {
         parameters.vuforiaLicenseKey = VUFORIA_KEY;
 
         // We also indicate which camera we wish to use.
-        parameters.cameraName = ClassFactory.getInstance().getCameraManager().nameForSwitchableCamera(webcamFront, webcamLeft, webcamRight);;
+        parameters.cameraName = ClassFactory.getInstance().getCameraManager().nameForSwitchableCamera(webcamFront, webcamLeft, webcamRight);
 
         // Turn off Extended tracking.  Set this true if you want Vuforia to track beyond the target.
         parameters.useExtendedTracking = false;
