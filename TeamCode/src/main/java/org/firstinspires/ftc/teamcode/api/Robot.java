@@ -40,17 +40,19 @@ import org.firstinspires.ftc.teamcode.api.hw.SmartServo;
 
 import java.util.concurrent.ExecutorService;
 
+import lombok.Getter;
+
 public class Robot extends AbstractRobot implements WheeledRobot, StepWheeledRobot, ArmRobot, DistanceSensorRobot {
     public static ExecutorService executorService;
 
     // Discuss if private is better idea
-    public SmartMotor bl, br, fl, fr, duck;
-    public SmartServo armLeft, armRight, clawLeft, clawRight, clawLeft2, clawRight2, armLeft2, armRight2;
-    public DistanceSensor distanceFL, distanceFR, distanceBL, distanceBR;
-    public SmartColorSensor parkSensor;
-    public WebcamName webcam0;
-    public static Gyroscope gyro0, gyro1;
-    private OpMode opMode;
+    @Getter private SmartMotor bl, br, fl, fr, duck;
+    @Getter private SmartServo armLeft, armRight, clawLeft, clawRight, clawLeft2, clawRight2, armLeft2, armRight2;
+    @Getter private DistanceSensor distanceFL, distanceFR, distanceBL, distanceBR;
+    @Getter private SmartColorSensor parkSensor;
+    @Getter private WebcamName webcam0;
+    @Getter private static Gyroscope gyro0, gyro1;
+    @Getter private OpMode opMode;
 
     public Robot(OpMode opMode) {
         super(opMode);

@@ -27,10 +27,10 @@ public class TimedSmartDuck extends LinearOpMode {
 
         robot.closeClaw();
 
-        robot.armLeft.setPwmEnable();
-        robot.armRight.setPwmEnable();
-        robot.clawLeft.setPwmEnable();
-        robot.clawRight.setPwmEnable();
+        robot.getArmLeft().setPwmEnable();
+        robot.getArmRight().setPwmEnable();
+        robot.getClawLeft().setPwmEnable();
+        robot.getClawRight().setPwmEnable();
 
         // Move left a little bit
         ElapsedTime runtime = new ElapsedTime();

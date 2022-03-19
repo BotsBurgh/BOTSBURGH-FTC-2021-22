@@ -68,15 +68,15 @@ public class TeleOpMain extends LinearOpMode {
 
             // Arm movement
             if (gamepad1.dpad_up) {
-                robot.positionArmO(Range.clip(robot.armLeft2.getPosition() - 0.01, 0.6, 1));
+                robot.positionArmO(Range.clip(robot.getArmLeft2().getPosition() - 0.01, 0.6, 1));
             } else if (gamepad1.dpad_down) {
-                robot.positionArmO(Range.clip(robot.armLeft2.getPosition() + 0.01, 0.6, 1));
+                robot.positionArmO(Range.clip(robot.getArmLeft2().getPosition() + 0.01, 0.6, 1));
             }
 
             if (gamepad2.dpad_up) {
-                robot.positionArm(Range.clip(robot.armLeft.getPosition() - 0.01, 0.5, 1));
+                robot.positionArm(Range.clip(robot.getArmLeft().getPosition() - 0.01, 0.5, 1));
             } else if (gamepad2.dpad_down) {
-                robot.positionArm(Range.clip(robot.armLeft.getPosition() + 0.01, 0.5, 1));
+                robot.positionArm(Range.clip(robot.getArmLeft().getPosition() + 0.01, 0.5, 1));
             }
 
             // Claw opening / closing
