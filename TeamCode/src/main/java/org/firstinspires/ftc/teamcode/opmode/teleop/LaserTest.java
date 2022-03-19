@@ -1,11 +1,7 @@
 package org.firstinspires.ftc.teamcode.opmode.teleop;
 
-import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
-import com.acmerobotics.dashboard.FtcDashboard;
-import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.util.Range;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 
 
