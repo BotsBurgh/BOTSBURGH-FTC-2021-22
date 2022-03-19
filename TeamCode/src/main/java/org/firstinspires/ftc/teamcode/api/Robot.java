@@ -122,10 +122,6 @@ public class Robot extends AbstractRobot implements WheeledRobot, StepWheeledRob
         this.duck.setPower(power);
     }
 
-    @Deprecated
-    public void powerStepWheels(double leftPower, double rightPower) {
-    }
-
     @Override
     public double getFLDistance() {
         return this.distanceFL.getDistance(DistanceUnit.CM);
