@@ -29,6 +29,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.api.bp.AbstractRobot;
 import org.firstinspires.ftc.teamcode.api.bp.ArmRobot;
 import org.firstinspires.ftc.teamcode.api.bp.DistanceSensorRobot;
+import org.firstinspires.ftc.teamcode.api.bp.DuckRobot;
 import org.firstinspires.ftc.teamcode.api.bp.WheeledRobot;
 import org.firstinspires.ftc.teamcode.api.config.Constants;
 import org.firstinspires.ftc.teamcode.api.config.Naming;
@@ -42,7 +43,7 @@ import java.util.concurrent.ExecutorService;
 import lombok.Getter;
 import lombok.Setter;
 
-public class Robot extends AbstractRobot implements WheeledRobot, ArmRobot, DistanceSensorRobot {
+public class Robot extends AbstractRobot implements WheeledRobot, DuckRobot, ArmRobot, DistanceSensorRobot {
     public static ExecutorService executorService;
 
     @Getter
