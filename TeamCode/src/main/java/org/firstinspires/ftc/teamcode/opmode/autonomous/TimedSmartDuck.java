@@ -68,7 +68,6 @@ public class TimedSmartDuck extends LinearOpMode {
                         && opModeIsActive()
         ) {
             robot.powerWheels(1);
-            robot.powerStepWheels(1);
         }
 
         robot.powerWheels(0);

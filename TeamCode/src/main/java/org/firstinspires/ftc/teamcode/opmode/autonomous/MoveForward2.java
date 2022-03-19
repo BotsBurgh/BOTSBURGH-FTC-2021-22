@@ -39,11 +39,9 @@ public class MoveForward2 extends LinearOpMode {
 
         while (runtime.seconds() < 2 && opModeIsActive()) {
             robot.powerWheels(1);
-            robot.powerStepWheels(1);
         }
 
         robot.powerWheels(0);
-        robot.powerStepWheels(0);
 
         telemetry.addData("Status", "Finished");
         telemetry.update();
