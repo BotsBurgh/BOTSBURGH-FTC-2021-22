@@ -46,13 +46,20 @@ public class Robot extends AbstractRobot implements WheeledRobot, StepWheeledRob
     public static ExecutorService executorService;
 
     // Discuss if private is better idea
-    @Getter private SmartMotor bl, br, fl, fr, duck;
-    @Getter private SmartServo armLeft, armRight, clawLeft, clawRight, clawLeft2, clawRight2, armLeft2, armRight2;
-    @Getter private DistanceSensor distanceFL, distanceFR, distanceBL, distanceBR;
-    @Getter private SmartColorSensor parkSensor;
-    @Getter private WebcamName webcam0;
-    @Getter private static Gyroscope gyro0, gyro1;
-    @Getter private OpMode opMode;
+    @Getter
+    private SmartMotor bl, br, fl, fr, duck;
+    @Getter
+    private SmartServo armLeft, armRight, clawLeft, clawRight, clawLeft2, clawRight2, armLeft2, armRight2;
+    @Getter
+    private DistanceSensor distanceFL, distanceFR, distanceBL, distanceBR;
+    @Getter
+    private SmartColorSensor parkSensor;
+    @Getter
+    private WebcamName webcam0;
+    @Getter
+    private static Gyroscope gyro0, gyro1;
+    @Getter
+    private OpMode opMode;
 
     public Robot(OpMode opMode) {
         super(opMode);
@@ -66,18 +73,32 @@ public class Robot extends AbstractRobot implements WheeledRobot, StepWheeledRob
         this.br.setPower(brPower);
     }
 
+    // Arm 1
+
     @Override
     public void positionArm(double position) {
         this.armLeft.setPosition(position);
         this.armRight.setPosition(position);
     }
 
-
     @Override
     public void positionClaw(double position) {
         this.clawLeft.setPosition(position);
         this.clawRight.setPosition(position);
     }
+
+    public void adjustArm(double amount) {
+        this.armLeft.setPosition(this.armLeft.getPosition() + amount);
+        this.armRight.setPosition(this.armRight.getPosition() + amount);
+    }
+
+    @Override
+    public void adjustClaw(double amount) {
+        this.clawLeft.setPosition(this.clawLeft.getPosition() + amount);
+        this.clawRight.setPosition(this.clawRight.getPosition() + amount);
+    }
+
+    // Arm 2
 
     public void positionArm2(double position) {
         this.armLeft2.setPosition(position);
@@ -89,10 +110,9 @@ public class Robot extends AbstractRobot implements WheeledRobot, StepWheeledRob
         this.clawRight2.setPosition(position);
     }
 
-    @Override
-    public void adjustClaw(double amount) {
-        this.clawLeft.setPosition(this.clawLeft.getPosition() + amount);
-        this.clawRight.setPosition(this.clawRight.getPosition() + amount);
+    public void adjustArm2(double amount) {
+        this.armLeft2.setPosition(this.armLeft2.getPosition() + amount);
+        this.armRight2.setPosition(this.armRight2.getPosition() + amount);
     }
 
     public void adjustClaw2(double amount) {
