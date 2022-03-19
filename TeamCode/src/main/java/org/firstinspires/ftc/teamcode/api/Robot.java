@@ -41,8 +41,9 @@ import org.firstinspires.ftc.teamcode.api.hw.SmartServo;
 import java.util.concurrent.ExecutorService;
 
 import lombok.Getter;
+import lombok.Setter;
 
-public class Robot extends AbstractRobot implements WheeledRobot, StepWheeledRobot, ArmRobot, DistanceSensorRobot {
+public class Robot extends AbstractRobot implements WheeledRobot, ArmRobot, DistanceSensorRobot {
     public static ExecutorService executorService;
 
     // Discuss if private is better idea
@@ -57,6 +58,7 @@ public class Robot extends AbstractRobot implements WheeledRobot, StepWheeledRob
     @Getter
     private WebcamName webcam0;
     @Getter
+    @Setter
     private static Gyroscope gyro0, gyro1;
     @Getter
     private OpMode opMode;

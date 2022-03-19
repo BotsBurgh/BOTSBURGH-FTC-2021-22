@@ -28,7 +28,7 @@ public class GyroTracker {
     }
 
     public static void loop() {
-        currentAcceleration = Robot.gyro1.getLinearAcceleration();
+        currentAcceleration = Robot.getGyro1().getLinearAcceleration();
         totalAcceleration.xAccel += currentAcceleration.xAccel;
         totalAcceleration.yAccel += currentAcceleration.yAccel;
         totalAcceleration.zAccel += currentAcceleration.zAccel;

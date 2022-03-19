@@ -17,9 +17,9 @@ public class PositionTelemetry extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
-        Robot.gyro1 = new Gyroscope(hardwareMap.get(BNO055IMU.class, Naming.GYRO_1), "gyro1");
-        Robot.gyro1.initGyro();
-        Robot.gyro1.calibrateGyro();
+        Robot.setGyro1(new Gyroscope(hardwareMap.get(BNO055IMU.class, Naming.GYRO_1), "gyro1"));
+        Robot.getGyro1().initGyro();
+        Robot.getGyro1().calibrateGyro();
 
         GyroTracker.reset();
 
