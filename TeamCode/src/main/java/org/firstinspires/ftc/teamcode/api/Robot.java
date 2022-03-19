@@ -29,7 +29,6 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.api.bp.AbstractRobot;
 import org.firstinspires.ftc.teamcode.api.bp.ArmRobot;
 import org.firstinspires.ftc.teamcode.api.bp.DistanceSensorRobot;
-import org.firstinspires.ftc.teamcode.api.bp.StepWheeledRobot;
 import org.firstinspires.ftc.teamcode.api.bp.WheeledRobot;
 import org.firstinspires.ftc.teamcode.api.config.Constants;
 import org.firstinspires.ftc.teamcode.api.config.Naming;
@@ -46,7 +45,6 @@ import lombok.Setter;
 public class Robot extends AbstractRobot implements WheeledRobot, ArmRobot, DistanceSensorRobot {
     public static ExecutorService executorService;
 
-    // Discuss if private is better idea
     @Getter
     private SmartMotor bl, br, fl, fr, duck;
     @Getter
