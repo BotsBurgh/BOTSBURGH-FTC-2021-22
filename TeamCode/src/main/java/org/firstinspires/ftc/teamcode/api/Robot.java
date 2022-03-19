@@ -18,14 +18,10 @@ package org.firstinspires.ftc.teamcode.api;
 
 import androidx.annotation.NonNull;
 
-import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
-import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -42,17 +38,14 @@ import org.firstinspires.ftc.teamcode.api.hw.SmartColorSensor;
 import org.firstinspires.ftc.teamcode.api.hw.SmartMotor;
 import org.firstinspires.ftc.teamcode.api.hw.SmartServo;
 
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
-import lombok.Getter;
 
 public class Robot extends AbstractRobot implements WheeledRobot, StepWheeledRobot, ArmRobot, DistanceSensorRobot {
     public static ExecutorService executorService;
 
     // Discuss if private is better idea
-    public SmartMotor bl, br, fl, fr, duck, left, right;
+    public SmartMotor bl, br, fl, fr, duck;
     public SmartServo armLeft, armRight, clawLeft, clawRight, clawLefto, clawRighto, armLefto, armRighto;
     public DistanceSensor distanceFL, distanceFR, distanceBL, distanceBR;
     public SmartColorSensor parkSensor;
@@ -64,7 +57,6 @@ public class Robot extends AbstractRobot implements WheeledRobot, StepWheeledRob
         super(opMode);
     }
 
-    // Wheels
     @Override
     public void powerWheels(double flPower, double frPower, double blPower, double brPower) {
         this.fl.setPower(flPower);
@@ -72,8 +64,6 @@ public class Robot extends AbstractRobot implements WheeledRobot, StepWheeledRob
         this.bl.setPower(blPower);
         this.br.setPower(brPower);
     }
-
-    // Arm
 
     @Override
     public void positionArm(double position) {
@@ -100,17 +90,8 @@ public class Robot extends AbstractRobot implements WheeledRobot, StepWheeledRob
 
     @Override
     public void adjustClaw(double amount) {
-        // Version 1
         this.clawLeft.setPosition(this.clawLeft.getPosition() + amount);
         this.clawRight.setPosition(this.clawRight.getPosition() + amount);
-
-        // Version 2
-
-        /*
-        * double finalPosition = this.clawLeft.getPosition() + amount;
-        * this.clawLeft.setPosition(finalPosition);
-        * this.clawRight.setPosition(finalPosition);
-        */
     }
 
     public void adjustClawO(double amount) {
@@ -142,7 +123,8 @@ public class Robot extends AbstractRobot implements WheeledRobot, StepWheeledRob
     }
 
     @Deprecated
-    public void powerStepWheels(double leftPower, double rightPower) {}
+    public void powerStepWheels(double leftPower, double rightPower) {
+    }
 
     @Override
     public double getFLDistance() {
@@ -166,13 +148,7 @@ public class Robot extends AbstractRobot implements WheeledRobot, StepWheeledRob
 
     @Override
     public void initTeleOp(@NonNull OpMode opMode) {
-        // Threading or something
-        ExecutorService executorService = Executors.newFixedThreadPool(Constants.THREADS);
-
-        // For future reference
         this.opMode = opMode;
-
-        // InitRobot has an executor service, not sure if that should be included here
 
         // Motors
         this.bl = new SmartMotor(opMode.hardwareMap.get(DcMotorEx.class, Naming.MOTOR_BL));
