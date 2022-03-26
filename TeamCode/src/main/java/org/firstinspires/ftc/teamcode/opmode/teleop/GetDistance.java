@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmode.autonomous;
+package org.firstinspires.ftc.teamcode.opmode.teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.api.Robot;
 import org.firstinspires.ftc.teamcode.api.config.Naming;
 
-@TeleOp(name = "Get Distance", group= Naming.OPMODE_GROUP_UTIL)
+@TeleOp(name = "Get Distance", group = Naming.OPMODE_GROUP_UTIL)
 public class GetDistance extends LinearOpMode {
     @Override
     public void runOpMode() {

@@ -57,6 +57,7 @@ public class SensorSmartDuck extends LinearOpMode {
 
         // Raise Arm
         robot.positionArm(0.718);
+        robot.positionArm2(0.718);
         sleep(500);
 
         // Move forward into warehouse
