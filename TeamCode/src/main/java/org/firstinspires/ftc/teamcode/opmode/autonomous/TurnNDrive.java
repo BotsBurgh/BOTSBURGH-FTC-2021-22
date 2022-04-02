@@ -16,10 +16,6 @@ public class TurnNDrive extends LinearOpMode {
     @Override
     public void runOpMode() {
         Robot robot = new Robot(this);
-        telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
-        Robot.setGyro0(new Gyroscope(hardwareMap.get(BNO055IMU.class, Naming.GYRO_0), "gyro0"));
-        Robot.getGyro0().initGyro();
-        Robot.getGyro0().calibrateGyro();
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
