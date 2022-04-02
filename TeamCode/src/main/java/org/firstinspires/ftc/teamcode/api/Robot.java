@@ -26,13 +26,19 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
+import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
+import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
+import org.firstinspires.ftc.teamcode.BuildConfig;
 import org.firstinspires.ftc.teamcode.api.bp.AbstractRobot;
 import org.firstinspires.ftc.teamcode.api.bp.DistanceSensorRobot;
 import org.firstinspires.ftc.teamcode.api.bp.DuckRobot;
 import org.firstinspires.ftc.teamcode.api.bp.GyroRobot;
 import org.firstinspires.ftc.teamcode.api.bp.TwoArmRobot;
+import org.firstinspires.ftc.teamcode.api.bp.VuforiaRobot;
 import org.firstinspires.ftc.teamcode.api.bp.WheeledRobot;
 import org.firstinspires.ftc.teamcode.api.config.Constants;
 import org.firstinspires.ftc.teamcode.api.config.Naming;
@@ -40,13 +46,16 @@ import org.firstinspires.ftc.teamcode.api.hw.Gyroscope;
 import org.firstinspires.ftc.teamcode.api.hw.SmartColorSensor;
 import org.firstinspires.ftc.teamcode.api.hw.SmartMotor;
 import org.firstinspires.ftc.teamcode.api.hw.SmartServo;
+import org.firstinspires.ftc.teamcode.api.util.DuckPos;
+import org.firstinspires.ftc.teamcode.opmode.teleop.TensorFlowObjectDetectionWebcam;
 
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 
 import lombok.Getter;
 import lombok.Setter;
 
-public class Robot extends AbstractRobot implements WheeledRobot, DuckRobot, TwoArmRobot, DistanceSensorRobot, GyroRobot {
+public class Robot extends AbstractRobot implements WheeledRobot, DuckRobot, TwoArmRobot, DistanceSensorRobot, GyroRobot, VuforiaRobot {
     public static ExecutorService executorService;
     @Getter
     @Setter
@@ -63,6 +72,9 @@ public class Robot extends AbstractRobot implements WheeledRobot, DuckRobot, Two
     private WebcamName webcam0;
     @Getter
     private LinearOpMode opMode;
+    private VuforiaLocalizer vuforia;
+    private TFObjectDetector tfod;
+
 
     public Robot(LinearOpMode opMode) {
         super(opMode);
@@ -466,5 +478,71 @@ public class Robot extends AbstractRobot implements WheeledRobot, DuckRobot, Two
      */
     public double getSteer(double error, double PCoeff) {
         return Range.clip(error * PCoeff, -1, 1);
+    }
+
+    public void initVuforia() {
+        /*
+         * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
+         */
+        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
+
+        parameters.vuforiaLicenseKey = BuildConfig.VUFORIA_KEY;
+        parameters.cameraName = webcam0;
+
+        //  Instantiate the Vuforia engine
+        vuforia = ClassFactory.getInstance().createVuforia(parameters);
+
+        // Loading trackables is not necessary for the TensorFlow Object Detection engine.
+
+    }
+
+    public void initTfod() {
+        int tfodMonitorViewId = opMode.hardwareMap.appContext.getResources().getIdentifier(
+                "tfodMonitorViewId", "id", opMode.hardwareMap.appContext.getPackageName());
+        TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
+        tfodParameters.minResultConfidence = 0.8f;
+        tfodParameters.isModelTensorFlow2 = true;
+        tfodParameters.inputSize = 320;
+        tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
+        tfod.loadModelFromAsset(Constants.TFOD_MODEL_ASSET, Constants.LABELS);
+    }
+
+    public DuckPos getDuckPos() {
+        DuckPos pos = DuckPos.NONE;
+        ElapsedTime timer = new ElapsedTime();
+        timer.reset();
+        if (opMode.opModeIsActive()) {
+            // Five seconds ought to do it
+            while (opMode.opModeIsActive() && timer.time() < 5) {
+                if (tfod != null) {
+                    // getUpdatedRecognitions() will return null if no new information is available since
+                    // the last time that call was made.
+                    List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
+                    if (updatedRecognitions != null) {
+                        opMode.telemetry.addData("# Object Detected", updatedRecognitions.size());
+                        // step through the list of recognitions and display boundary info.
+                        int i = 0;
+                        for (Recognition recognition : updatedRecognitions) {
+                            if (recognition.getLeft() < 120) {
+                                pos = DuckPos.LEFT;
+                            } else if (recognition.getLeft() > 390) {
+                                pos = DuckPos.CENTER;
+                            } else {
+                                pos = DuckPos.RIGHT;
+                            }
+                            opMode.telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
+                            opMode.telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
+                                    recognition.getLeft(), recognition.getTop());
+                            opMode.telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
+                                    recognition.getRight(), recognition.getBottom());
+                            opMode.telemetry.addData("  position: ", pos);
+                            i++;
+                        }
+                        opMode.telemetry.update();
+                    }
+                }
+            }
+        }
+        return pos;
     }
 }
