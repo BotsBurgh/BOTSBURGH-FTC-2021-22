@@ -7,8 +7,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.api.Robot;
 import org.firstinspires.ftc.teamcode.api.config.Naming;
 
-@Autonomous(name = "Sensor Smart Duck", group = Naming.OPMODE_GROUP_COMP)
-public class SensorSmartDuck extends LinearOpMode {
+@Autonomous(name = "Red - Sensor Smart Duck", group = Naming.OPMODE_GROUP_COMP)
+public class RedSensorSmartDuck extends LinearOpMode {
     @Override
     public void runOpMode() {
         Robot robot = new Robot(this);
