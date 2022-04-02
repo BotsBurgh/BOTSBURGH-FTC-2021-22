@@ -31,4 +31,12 @@ public class Constants {
     public static double     HEADING_THRESHOLD       = 0.02;      // As tight as we can make it with an integer gyro
     public static double     P_TURN_COEFF            = 1.5;     // Larger is more responsive, but also less stable
     public static double     P_DRIVE_COEFF           = 2;     // Larger is more responsive, but also less stable
+    public static final String TFOD_MODEL_ASSET = "FreightFrenzy_BCDM.tflite";
+    public static final String[] LABELS = {
+            "Ball",
+            "Cube",
+            "Duck",
+            "Marker"
+    };
+
 }
