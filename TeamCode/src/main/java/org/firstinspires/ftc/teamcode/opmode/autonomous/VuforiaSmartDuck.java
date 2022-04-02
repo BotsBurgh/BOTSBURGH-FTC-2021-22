@@ -1,39 +1,10 @@
-/* Copyright (c) 2019 FIRST. All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted (subject to the limitations in the disclaimer below) provided that
- * the following conditions are met:
- *
- * Redistributions of source code must retain the above copyright notice, this list
- * of conditions and the following disclaimer.
- *
- * Redistributions in binary form must reproduce the above copyright notice, this
- * list of conditions and the following disclaimer in the documentation and/or
- * other materials provided with the distribution.
- *
- * Neither the name of FIRST nor the names of its contributors may be used to endorse or
- * promote products derived from this software without specific prior written permission.
- *
- * NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY THIS
- * LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-
-package org.firstinspires.ftc.teamcode.opmode.teleop;
+package org.firstinspires.ftc.teamcode.opmode.autonomous;
 
 import com.acmerobotics.dashboard.FtcDashboard;
-import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -41,23 +12,14 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import org.firstinspires.ftc.teamcode.BuildConfig;
+import org.firstinspires.ftc.teamcode.api.Robot;
 import org.firstinspires.ftc.teamcode.api.config.Naming;
 
 import java.util.List;
 
-/**
- * This 2020-2021 OpMode illustrates the basics of using the TensorFlow Object Detection API to
- * determine the position of the Freight Frenzy game elements.
- * <p>
- * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
- * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list.
- * <p>
- * IMPORTANT: In order to use this OpMode, you need to obtain your own Vuforia license key as
- * is explained below.
- */
-@Config
-@TeleOp(name = "Concept: TensorFlow Object Detection Webcam", group = Naming.OPMODE_GROUP_DEMO)
-public class TensorFlowObjectDetectionWebcam extends LinearOpMode {
+@Autonomous(name = "Vuforia Smart Duck", group = Naming.OPMODE_GROUP_COMP)
+public class VuforiaSmartDuck extends LinearOpMode {
+
     /* Note: This sample uses the all-objects Tensor Flow model (FreightFrenzy_BCDM.tflite), which contains
      * the following 4 detectable objects
      *  0: Ball,
@@ -76,12 +38,6 @@ public class TensorFlowObjectDetectionWebcam extends LinearOpMode {
             "Duck",
             "Marker"
     };
-
-    private enum DUCK_POS {
-        LEFT,
-        CENTER,
-        RIGHT
-    }
     /*
      * IMPORTANT: You need to obtain your own license key to use Vuforia. The string below with which
      * 'parameters.vuforiaLicenseKey' is initialized is for illustration only, and will not function.
@@ -102,7 +58,6 @@ public class TensorFlowObjectDetectionWebcam extends LinearOpMode {
      * localization engine.
      */
     private VuforiaLocalizer vuforia;
-
     /**
      * {@link #tfod} is the variable we will use to store our instance of the TensorFlow Object
      * Detection engine.
@@ -111,6 +66,9 @@ public class TensorFlowObjectDetectionWebcam extends LinearOpMode {
 
     @Override
     public void runOpMode() {
+        Robot robot = new Robot(this);
+        ElapsedTime runtime;
+
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
         // first.
         initVuforia();
@@ -118,10 +76,10 @@ public class TensorFlowObjectDetectionWebcam extends LinearOpMode {
 
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 
-        /**
+        /*
          * Activate TensorFlow Object Detection before we wait for the start command.
          * Do it here so that the Camera Stream window will have the TensorFlow annotations visible.
-         **/
+         */
         if (tfod != null) {
             tfod.activate();
 
@@ -134,43 +92,95 @@ public class TensorFlowObjectDetectionWebcam extends LinearOpMode {
             tfod.setZoom(MAGNIFICATION, 16.0 / 9.0);
         }
 
-        /** Wait for the game to begin */
-        telemetry.addData(">", "Press Play to start op mode");
+        telemetry.addData("Status", "Initialized");
         telemetry.update();
+
         waitForStart();
 
-        if (opModeIsActive()) {
-            while (opModeIsActive()) {
-                if (tfod != null) {
-                    // getUpdatedRecognitions() will return null if no new information is available since
-                    // the last time that call was made.
-                    List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
-                    if (updatedRecognitions != null) {
-                        telemetry.addData("# Object Detected", updatedRecognitions.size());
-                        // step through the list of recognitions and display boundary info.
-                        int i = 0;
-                        for (Recognition recognition : updatedRecognitions) {
-                            DUCK_POS pos;
-                            if (recognition.getLeft() < 120) {
-                                pos = DUCK_POS.LEFT;
-                            } else if (recognition.getLeft() > 390) {
-                                pos = DUCK_POS.CENTER;
-                            } else {
-                                pos = DUCK_POS.RIGHT;
-                            }
-                            telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
-                            telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
-                                    recognition.getLeft(), recognition.getTop());
-                            telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
-                                    recognition.getRight(), recognition.getBottom());
-                            telemetry.addData("  position: ", pos);
-                            i++;
+        telemetry.addData("Status", "Running");
+        telemetry.update();
+
+        DUCK_POS pos = DUCK_POS.RIGHT;
+        // If it's not being detected, 10000 may need to be increased
+        for (int b = 0; b < 10000; b++) {
+            if (tfod != null) {
+                // getUpdatedRecognitions() will return null if no new information is available since
+                // the last time that call was made.
+                List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
+                if (updatedRecognitions != null) {
+                    telemetry.addData("# Object Detected", updatedRecognitions.size());
+                    // step through the list of recognitions and display boundary info.
+                    int i = 0;
+                    for (Recognition recognition : updatedRecognitions) {
+                        if (recognition.getLeft() < 120) {
+                            pos = DUCK_POS.LEFT;
+                        } else if (recognition.getLeft() > 390) {
+                            pos = DUCK_POS.CENTER;
                         }
-                        telemetry.update();
+                        telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
+                        telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
+                                recognition.getLeft(), recognition.getTop());
+                        telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
+                                recognition.getRight(), recognition.getBottom());
+                        telemetry.addData("  position: ", pos);
+                        i++;
                     }
+                    telemetry.update();
                 }
             }
         }
+
+        telemetry.addData("Position: ", pos);
+
+        robot.closeClaw();
+
+        robot.getArmLeft().setPwmEnable();
+        robot.getArmRight().setPwmEnable();
+        robot.getClawLeft().setPwmEnable();
+        robot.getClawRight().setPwmEnable();
+
+        // Move backwards into duck wheel
+        runtime = new ElapsedTime();
+
+        while (robot.getBackDistance() > 20 && runtime.seconds() < 5 && opModeIsActive()) {
+            robot.powerWheels(-0.3);
+        }
+
+        robot.powerWheels(0);
+        sleep(500);
+
+        // Spin duck wheel
+        runtime = new ElapsedTime();
+
+        while (runtime.seconds() < 3 && opModeIsActive()) {
+            robot.powerDuck(-0.7);
+        }
+
+        robot.powerDuck(0);
+        sleep(500);
+
+        // Move left
+        robot.powerWheels(-0.5, 0.5, 0.5, -0.5);
+        sleep(850);
+        robot.powerWheels(0);
+        sleep(500);
+
+        // Raise Arm
+        robot.positionArm(0.718);
+        sleep(500);
+
+        // Move forward into warehouse
+        runtime = new ElapsedTime();
+
+        while (robot.getFRDistance() > 80 && runtime.seconds() < 5 && opModeIsActive()) {
+            robot.powerWheels(1);
+        }
+
+        robot.powerWheels(0);
+
+        // Done!
+        telemetry.addData("Status", "Finished");
+        telemetry.update();
     }
 
     /**
@@ -203,5 +213,11 @@ public class TensorFlowObjectDetectionWebcam extends LinearOpMode {
         tfodParameters.inputSize = 320;
         tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
         tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABELS);
+    }
+
+    private enum DUCK_POS {
+        LEFT,
+        CENTER,
+        RIGHT,
     }
 }
