@@ -30,11 +30,12 @@ public class TurnNDrive extends LinearOpMode {
         telemetry.update();
 
         robot.gyroTurn(Constants.TURN_SPEED, -Math.PI/4);
-        robot.gyroHold(Constants.TURN_SPEED, -Math.PI/4, 0.5);
+        robot.gyroHold(Constants.TURN_SPEED, -Math.PI/4, 1);
         robot.gyroTurn(Constants.TURN_SPEED, Math.PI/4);
-        robot.gyroHold(Constants.TURN_SPEED, Math.PI/4, 0.5);
+        robot.gyroHold(Constants.TURN_SPEED, Math.PI/4, 1);
         robot.gyroTurn(Constants.TURN_SPEED, 0.0);
-        robot.gyroDrive(Constants.DRIVE_SPEED, 48.0, 0.0);
+        robot.gyroDrive(Constants.DRIVE_SPEED, 10.0, 0.0);
+        robot.gyroDrive(Constants.DRIVE_SPEED, -10.0, 0.0);
 
         telemetry.addData("Status", "Finished");
         telemetry.update();

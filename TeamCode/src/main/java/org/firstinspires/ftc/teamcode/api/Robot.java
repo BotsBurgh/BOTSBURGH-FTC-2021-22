@@ -259,10 +259,8 @@ public class Robot extends AbstractRobot implements WheeledRobot, DuckRobot, Two
         int moveCounts;
         double error;
         double steer;
-        double flPower;
-        double blPower;
-        double brPower;
-        double frPower;
+        double lPower;
+        double rPower;
 
         // Ensure that the opmode is still active
         if (opMode.opModeIsActive()) {
@@ -301,20 +299,19 @@ public class Robot extends AbstractRobot implements WheeledRobot, DuckRobot, Two
                 steer = getSteer(error, Constants.P_DRIVE_COEFF);
 
                 // if driving in reverse, the motor correction also needs to be reversed
-                if (distance < 0)
+                if (distance < 0) {
                     steer *= -1.0;
+                }
 
-                flPower = Range.clip((-speed + steer), -1.0, 1.0);
-                blPower = Range.clip((-speed + steer), -1.0, 1.0);
-                brPower = Range.clip((-speed - steer), -1.0, 1.0);
-                frPower = Range.clip((-speed - steer), -1.0, 1.0);
+                lPower = speed - steer;
+                rPower = speed + steer;
 
-                br.setPower(brPower);
-                fr.setPower(frPower);
-                bl.setPower(blPower);
-                fl.setPower(flPower);
+                br.setPower(rPower);
+                fr.setPower(rPower);
+                bl.setPower(lPower);
+                fl.setPower(lPower);
 
-                opMode.telemetry.addData("Err/St",  "%5.1f/%5.1f",  error, steer);
+                opMode.telemetry.addData("Err/St", "%5.1f/%5.1f", error, steer);
                 opMode.telemetry.addData("FL Target", newFLTarget);
                 opMode.telemetry.addData("FR Target", newFRTarget);
                 opMode.telemetry.addData("BL Target", newBLTarget);
@@ -384,6 +381,7 @@ public class Robot extends AbstractRobot implements WheeledRobot, DuckRobot, Two
         while (opMode.opModeIsActive() && (holdTimer.time() < holdTime)) {
             // Update telemetry & Allow time for other processes to run.
             onHeading(speed, angle, Constants.P_TURN_COEFF);
+            opMode.telemetry.update();
         }
 
         // Stop all motion;
@@ -401,7 +399,7 @@ public class Robot extends AbstractRobot implements WheeledRobot, DuckRobot, Two
      *               0 = fwd. +ve is CCW from fwd. -ve is CW from forward.
      *               If a relative angle is required, add/subtract from current heading.
      * @param PCoeff Proportional Gain coefficient
-     * @return
+     * @return If the robot is on the correct heading
      */
     public boolean onHeading(double speed, double angle, double PCoeff) {
         double error;
@@ -420,9 +418,8 @@ public class Robot extends AbstractRobot implements WheeledRobot, DuckRobot, Two
             onTarget = true;
         } else {
             steer = getSteer(error, PCoeff);
-            lPower = steer;
-            rPower = -lPower;
-
+            lPower = -steer;
+            rPower = steer;
         }
 
         // Send desired speeds to motors.
@@ -450,17 +447,13 @@ public class Robot extends AbstractRobot implements WheeledRobot, DuckRobot, Two
      * +ve error means the robot should turn LEFT (CCW) to reduce error.
      */
     public double getError(double targetAngle) {
-
         double robotError;
 
         // calculate error in -pi to +pi range  (
-        // TODO: Make sure that this is the right angle (we need Z)
-        opMode.telemetry.addData("Current First Angle:", gyro0.getAngularOrientation().firstAngle);
-        opMode.telemetry.addData("Current Second Angle:", gyro0.getAngularOrientation().secondAngle);
-        opMode.telemetry.addData("Current Third Angle:", gyro0.getAngularOrientation().thirdAngle);
+        opMode.telemetry.addData("Current Angle:", gyro0.getAngularOrientation().firstAngle);
         robotError = targetAngle - gyro0.getAngularOrientation().firstAngle;
         while (robotError > Math.PI) robotError -= 2*Math.PI;
-        while (robotError <= -Math.PI) robotError += 2*Math.PI;
+        while (robotError < -Math.PI) robotError += 2*Math.PI;
         return robotError;
     }
 
