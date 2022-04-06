@@ -68,9 +68,9 @@ public class TeleOpMain extends LinearOpMode {
 
             // Arm movement
             if (gamepad1.dpad_up) {
-                robot.positionArm2(Range.clip(robot.getArmLeft2().getPosition() - 0.01, 0.6, 1));
+                robot.positionArm2(Range.clip(robot.getArmLeft2().getPosition() - 0.01, 0.5, 1));
             } else if (gamepad1.dpad_down) {
-                robot.positionArm2(Range.clip(robot.getArmLeft2().getPosition() + 0.01, 0.6, 1));
+                robot.positionArm2(Range.clip(robot.getArmLeft2().getPosition() + 0.01, 0.5, 1));
             }
 
             if (gamepad2.dpad_up) {
